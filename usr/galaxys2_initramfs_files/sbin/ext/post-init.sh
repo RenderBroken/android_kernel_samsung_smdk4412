@@ -117,6 +117,10 @@ setprop net.dns2 8.8.4.4
 echo "100" > /sys/kernel/mm/ksm/pages_to_scan
 echo "500" > /sys/kernel/mm/ksm/sleep_millisecs
 
+for i in /sys/block/*/queue/add_random;do echo 0 > $i;done
+
+echo "0" > /proc/sys/kernel/randomize_va_space
+
 sysctl -w vm.dirty_background_ratio=5;
 sysctl -w vm.dirty_ratio=10;
 # low swapiness to use swap only when the system 
