@@ -981,12 +981,11 @@ static struct notifier_block ondemand_qos_dvfs_lat_nb = {
 
 static int __init cpufreq_gov_dbs_init(void)
 {
-	cputime64_t wall;
 	u64 idle_time;
 	int cpu = get_cpu();
 	int err = 0;
 
-	idle_time = get_cpu_idle_time_us(cpu, &wall);
+	idle_time = get_cpu_idle_time_us(cpu, NULL);
 	put_cpu();
 	if (idle_time != -1ULL) {
 		/* Idle micro accounting is supported. Use finer thresholds */
