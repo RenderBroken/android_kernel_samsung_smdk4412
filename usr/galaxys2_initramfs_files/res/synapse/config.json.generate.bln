@@ -54,12 +54,6 @@ cat << CTAG
                 action:"generic /sys/devices/virtual/sec/sec_touchkey/force_disable",
         }},
     { SCheckBox:{
-		description:"Selecting this will turn touckey leds on when you touch the screen.",
-                label:"Leds on with touch",
-                default:0,
-                action:"generic /sys/class/misc/notification/led_on_touch",
-        }},
-    { SCheckBox:{
 		description:"Glitch when touching touchkeys.",
                 label:"Led Fade-in Effect",
                 default:0,
