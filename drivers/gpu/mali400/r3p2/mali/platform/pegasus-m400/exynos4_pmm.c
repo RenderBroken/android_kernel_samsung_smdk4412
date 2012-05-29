@@ -287,7 +287,7 @@ struct regulator *g3d_regulator = NULL;
 mali_io_address clk_register_map = 0;
 
 /* DVFS */
-static unsigned int mali_dvfs_utilization = 255;
+u32 mali_dvfs_utilization = 255;
 u64 mali_dvfs_time[MALI_DVFS_STEPS];
 #ifdef CONFIG_MALI_DVFS
 static void update_time_in_state(int level);

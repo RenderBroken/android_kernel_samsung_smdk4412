@@ -144,6 +144,10 @@ int mali_use_vpll = 0;
 module_param(mali_use_vpll, int, S_IRUSR | S_IWUSR | S_IWGRP | S_IRGRP | S_IROTH); /* rw--rw--r-- */
 MODULE_PARM_DESC(mali_use_vpll, "Mali Use VPLL for Clock");
 #endif
+//thanks to michyprima@XDA
+extern int mali_dvfs_utilization;
+module_param(mali_dvfs_utilization, int, S_IRUSR | S_IRGRP | S_IROTH); /* r--r--r-- */
+MODULE_PARM_DESC(mali_dvfs_utilization, "Mali Current Utilization");
 
 static char mali_dev_name[] = "mali"; /* should be const, but the functions we call requires non-cost */
 
