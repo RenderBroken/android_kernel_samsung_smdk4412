@@ -682,7 +682,6 @@ static ssize_t negative_show(struct device *dev,
 {
 	struct mdnie_info *mdnie = dev_get_drvdata(dev);
 	char *pos = buf;
-	u32 i;
 
 	pos += sprintf(pos, "%d\n", mdnie->negative);
 
@@ -762,9 +761,7 @@ void mdnie_early_suspend(struct early_suspend *h)
 {
 #if defined(CONFIG_FB_MDNIE_PWM)
 	struct mdnie_info *mdnie = container_of(h, struct mdnie_info, early_suspend);
-	struct lcd_platform_data *pd = NULL;
-	pd = mdnie->lcd_pd;
-
+	
 	dev_info(mdnie->dev, "+%s\n", __func__);
 
 	mdnie->bd_enable = FALSE;
@@ -788,13 +785,11 @@ void mdnie_early_suspend(struct early_suspend *h)
 
 void mdnie_late_resume(struct early_suspend *h)
 {
-	u32 i;
 	struct mdnie_info *mdnie = container_of(h, struct mdnie_info, early_suspend);
 #if defined(CONFIG_FB_MDNIE_PWM)
-	struct lcd_platform_data *pd = NULL;
 
 	dev_info(mdnie->dev, "+%s\n", __func__);
-	pd = mdnie->lcd_pd;
+	struct lcd_platform_data *pd = mdnie->lcd_pd;
 
 	if (mdnie->enable)
 		mdnie_pwm_control(mdnie, 0);
@@ -1027,4 +1022,3 @@ module_exit(mdnie_exit);
 
 MODULE_DESCRIPTION("mDNIe Driver");
 MODULE_LICENSE("GPL");
-
