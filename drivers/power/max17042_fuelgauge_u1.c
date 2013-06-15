@@ -275,6 +275,7 @@ static void max17042_get_vcell(struct i2c_client *client)
 	}
 }
 
+#ifdef RECAL_SOC_FOR_MAXIM
 static int max17042_recalc_soc(struct i2c_client *client, int boot_cnt)
 {
 	struct max17042_chip *chip = i2c_get_clientdata(client);
@@ -326,13 +327,16 @@ static int max17042_recalc_soc(struct i2c_client *client, int boot_cnt)
 
 	return soc;
 }
+#endif
 
 static void max17042_get_soc(struct i2c_client *client)
 {
 	struct max17042_chip *chip = i2c_get_clientdata(client);
 	u8 data[2];
 	int soc;
+#ifdef RECAL_SOC_FOR_MAXIM
 	int diff = 0;
+#endif
 
 	if (chip->is_enable) {
 		if (max17042_read_reg(client, MAX17042_REG_SOC_VF, data) < 0)

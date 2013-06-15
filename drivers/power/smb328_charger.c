@@ -798,11 +798,12 @@ static int smb328_set_property(struct power_supply *psy,
 	return 0;
 }
 
+#if defined(CONFIG_MACH_Q1_CHN)
 static irqreturn_t smb328_irq_thread(int irq, void *data)
 {
 	struct smb328_chip *chip = data;
 	int ret = 0;
-#if defined(CONFIG_MACH_Q1_CHN) && defined(CONFIG_SMB328_CHARGER)
+#if defined(CONFIG_SMB328_CHARGER)
 	u8 data1 = 0;
 #endif
 
@@ -850,7 +851,7 @@ static int smb328_irq_init(struct smb328_chip *chip)
 	if (client->irq) {
 		ret = request_threaded_irq(client->irq, NULL,
 			smb328_irq_thread,
-#if defined(CONFIG_MACH_Q1_CHN) && defined(CONFIG_SMB328_CHARGER)
+#if defined(CONFIG_SMB328_CHARGER)
 			IRQ_TYPE_EDGE_BOTH,
 #else
 			IRQF_TRIGGER_RISING | IRQF_ONESHOT,
@@ -869,6 +870,7 @@ static int smb328_irq_init(struct smb328_chip *chip)
 
 	return 0;
 }
+#endif
 
 static int smb328_probe(struct i2c_client *client,
 	const struct i2c_device_id *id)
