@@ -3871,7 +3871,11 @@ static struct platform_device bcm4330_bluetooth_device = {
 #endif
 
 #ifdef CONFIG_SND_SOC_U1_MC1N2
+#ifndef CONFIG_MACH_Q1_BD
 static DEFINE_SPINLOCK(mic_bias_lock);
+#endif
+
+#ifndef CONFIG_MACH_Q1_BD
 static bool mc1n2_mainmic_bias;
 static bool mc1n2_submic_bias;
 
@@ -3884,6 +3888,7 @@ static void set_shared_mic_bias(void)
 		gpio_set_value(GPIO_EAR_MIC_BIAS_EN, mc1n2_mainmic_bias
 			       || mc1n2_submic_bias);
 }
+#endif
 
 void sec_set_sub_mic_bias(bool on)
 {
@@ -6119,7 +6124,6 @@ struct mxt540e_platform_data mxt540e_data = {
 
 #ifdef CONFIG_EPEN_WACOM_G5SP
 static int p6_wacom_init_hw(void);
-static int p6_wacom_exit_hw(void);
 static int p6_wacom_suspend_hw(void);
 static int p6_wacom_resume_hw(void);
 static int p6_wacom_early_suspend_hw(void);
