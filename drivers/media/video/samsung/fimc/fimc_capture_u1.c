@@ -1769,7 +1769,6 @@ int fimc_streamon_capture(void *fh)
 	struct s3c_platform_camera *cam = NULL;
 
 	struct s3c_platform_fimc *pdata = to_fimc_plat(ctrl->dev);
-	unsigned int inner_elapsed_usec = 0;
 
 	printk(KERN_INFO "%s fimc%d\n", __func__, ctrl->id);
 	cam_frmsize.discrete.width = 0;
@@ -2129,7 +2128,6 @@ int fimc_dqbuf_capture(void *fh, struct v4l2_buffer *b)
 	struct fimc_buf_set *buf;
 	size_t length = 0;
 	int i, pp, ret = 0;
-	phys_addr_t start, end;
 
 	struct s3c_platform_fimc *pdata = to_fimc_plat(ctrl->dev);
 
