@@ -200,7 +200,6 @@ int wacom_i2c_get_ums_data(struct wacom_i2c *wac_i2c, u8 **ums_data)
  malloc_error:
  size_error:
 	filp_close(fp, current->files);
- open_err:
 	set_fs(old_fs);
 	return ret;
 }
@@ -864,8 +863,6 @@ static ssize_t epen_firmware_update_store(struct device *dev,
 	mutex_unlock(&wac_i2c->lock);
 
 	return count;
-
- param_err:
 
  failure:
 	wac_i2c->wac_feature->firm_update_status = -1;

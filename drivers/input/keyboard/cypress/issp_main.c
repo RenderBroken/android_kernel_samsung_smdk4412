@@ -646,7 +646,9 @@ void ErrorTrap(unsigned char bErrorNumber)
 
 int ISSP_main(void)
 {
+	#ifdef RESET_MODE
 	unsigned long flags;
+	#endif
 
 	// -- This example section of commands show the high-level calls to -------
 	// -- perform Target Initialization, SilcionID Test, Bulk-Erase, Target ---
