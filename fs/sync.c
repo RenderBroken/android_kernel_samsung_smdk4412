@@ -289,10 +289,14 @@ static int do_fsync(unsigned int fd, int datasync)
 {
 	struct file *file;
 	int ret = -EBADF;
-	#ifdef CONFIG_ASYNC_FSYNC
+	int fput_needed;
+#ifdef CONFIG_ASYNC_FSYNC
 	struct fsync_work *fwork;
-	#endif
-	ktime_t fsync_t, fsync_diff;
+#endif
+
+	file = fget_light(fd, &fput_needed);
+	if (file) {
+		ktime_t fsync_t, fsync_diff;
 		char pathname[256], *path;
 		path = d_path(&(file->f_path), pathname, sizeof(pathname));
 		if (IS_ERR(path))
@@ -320,11 +324,9 @@ static int do_fsync(unsigned int fd, int datasync)
 		}
 no_async:
 #endif
-	fsync_t = ktime_get();
-	file = fget(fd);
-	if (file) {
+		fsync_t = ktime_get();
 		ret = vfs_fsync(file, datasync);
-		fput(file);
+		fput_light(file, fput_needed);
 		fsync_diff = ktime_sub(ktime_get(), fsync_t);
 		if (ktime_to_ms(fsync_diff) >= 5000) {
                         pr_info("VFS: %s pid:%d(%s)(parent:%d/%s)\
