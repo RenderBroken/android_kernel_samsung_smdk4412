@@ -35,10 +35,10 @@ EXPORT_SYMBOL(cleancache_enabled);
 static struct cleancache_ops cleancache_ops __read_mostly;
 
 /*
-  * Counters available via /sys/kernel/debug/frontswap (if debugfs is
-  * properly configured.  These are for information only so are not protected
-  * against increment races.
-*/
+ * Counters available via /sys/kernel/debug/frontswap (if debugfs is
+ * properly configured.  These are for information only so are not protected
+ * against increment races.
+ */
 static u64 cleancache_succ_gets;
 static u64 cleancache_failed_gets;
 static u64 cleancache_puts;
@@ -157,7 +157,7 @@ EXPORT_SYMBOL(__cleancache_put_page);
  * page's inode and page index so that a subsequent "get" will fail.
  */
 void __cleancache_invalidate_page(struct address_space *mapping,
-          struct page *page)
+					struct page *page)
 {
 	/* careful... page->mapping is NULL sometimes when this is called */
 	int pool_id = mapping->host->i_sb->cleancache_poolid;
@@ -166,7 +166,8 @@ void __cleancache_invalidate_page(struct address_space *mapping,
 	if (pool_id >= 0) {
 		VM_BUG_ON(!PageLocked(page));
 		if (cleancache_get_key(mapping->host, &key) >= 0) {
-			(*cleancache_ops.flush_page)(pool_id, key, page->index);
+			(*cleancache_ops.invalidate_page)(pool_id,
+							  key, page->index);
 			cleancache_invalidates++;
 		}
 	}
@@ -184,7 +185,7 @@ void __cleancache_invalidate_inode(struct address_space *mapping)
 	struct cleancache_filekey key = { .u.key = { 0 } };
 
 	if (pool_id >= 0 && cleancache_get_key(mapping->host, &key) >= 0)
-		(*cleancache_ops.flush_inode)(pool_id, key);
+		(*cleancache_ops.invalidate_inode)(pool_id, key);
 }
 EXPORT_SYMBOL(__cleancache_invalidate_inode);
 
@@ -198,24 +199,23 @@ void __cleancache_invalidate_fs(struct super_block *sb)
 	if (sb->cleancache_poolid >= 0) {
 		int old_poolid = sb->cleancache_poolid;
 		sb->cleancache_poolid = -1;
-		(*cleancache_ops.flush_fs)(old_poolid);
+		(*cleancache_ops.invalidate_fs)(old_poolid);
 	}
 }
-
 EXPORT_SYMBOL(__cleancache_invalidate_fs);
 
 static int __init init_cleancache(void)
 {
 #ifdef CONFIG_DEBUG_FS
-  struct dentry *root = debugfs_create_dir("cleancache", NULL);
-  if (root == NULL)
-    return -ENXIO;
-  debugfs_create_u64("succ_gets", S_IRUGO, root, &cleancache_succ_gets);
-  debugfs_create_u64("failed_gets", S_IRUGO,
-        root, &cleancache_failed_gets);
-  debugfs_create_u64("puts", S_IRUGO, root, &cleancache_puts);
-  debugfs_create_u64("invalidates", S_IRUGO,
-        root, &cleancache_invalidates);
+	struct dentry *root = debugfs_create_dir("cleancache", NULL);
+	if (root == NULL)
+		return -ENXIO;
+	debugfs_create_u64("succ_gets", S_IRUGO, root, &cleancache_succ_gets);
+	debugfs_create_u64("failed_gets", S_IRUGO,
+				root, &cleancache_failed_gets);
+	debugfs_create_u64("puts", S_IRUGO, root, &cleancache_puts);
+	debugfs_create_u64("invalidates", S_IRUGO,
+				root, &cleancache_invalidates);
 #endif
 	return 0;
 }
