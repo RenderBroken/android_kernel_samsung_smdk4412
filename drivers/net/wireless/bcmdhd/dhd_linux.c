@@ -713,10 +713,6 @@ check_pass(int op_mode)
 	if (op_mode & DHD_FLAG_IBSS_MODE)
 		return 0;
 #endif
-#if defined(PASS_ARP_PACKET)
-	if (!(dhd->op_mode && (DHD_FLAG_P2P_GC_MODE | DHD_FLAG_P2P_GO_MODE)))
-		return 1;
-#endif
 	return 1;
 }
 #endif /* defined(PASS_ARP_PACKET) || defined(SUPPORT_IBSS) */
