@@ -383,6 +383,7 @@ static void ceph_i_callback(struct rcu_head *head)
 	struct inode *inode = container_of(head, struct inode, i_rcu);
 	struct ceph_inode_info *ci = ceph_inode(inode);
 
+	INIT_LIST_HEAD(&inode->i_dentry);
 	kmem_cache_free(ceph_inode_cachep, ci);
 }
 
@@ -1794,17 +1795,17 @@ int ceph_do_getattr(struct inode *inode, int mask)
  * Check inode permissions.  We verify we have a valid value for
  * the AUTH cap, then call the generic handler.
  */
-int ceph_permission(struct inode *inode, int mask)
+int ceph_permission(struct inode *inode, int mask, unsigned int flags)
 {
 	int err;
 
-	if (mask & MAY_NOT_BLOCK)
+	if (flags & IPERM_FLAG_RCU)
 		return -ECHILD;
 
 	err = ceph_do_getattr(inode, CEPH_CAP_AUTH_SHARED);
 
 	if (!err)
-		err = generic_permission(inode, mask);
+		err = generic_permission(inode, mask, flags, NULL);
 	return err;
 }
 

@@ -503,7 +503,7 @@ static int logfs_mkdir(struct inode *dir, struct dentry *dentry, int mode)
 	return __logfs_create(dir, dentry, inode, NULL, 0);
 }
 
-static int logfs_create(struct inode *dir, struct dentry *dentry, umode_t mode,
+static int logfs_create(struct inode *dir, struct dentry *dentry, int mode,
 		struct nameidata *nd)
 {
 	struct inode *inode;
@@ -519,7 +519,7 @@ static int logfs_create(struct inode *dir, struct dentry *dentry, umode_t mode,
 	return __logfs_create(dir, dentry, inode, NULL, 0);
 }
 
-static int logfs_mknod(struct inode *dir, struct dentry *dentry, umode_t mode,
+static int logfs_mknod(struct inode *dir, struct dentry *dentry, int mode,
 		dev_t rdev)
 {
 	struct inode *inode;

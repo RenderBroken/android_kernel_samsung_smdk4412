@@ -125,7 +125,7 @@ static int cap_inode_init_security(struct inode *inode, struct inode *dir,
 }
 
 static int cap_inode_create(struct inode *inode, struct dentry *dentry,
-			    umode_t mask)
+			    int mask)
 {
 	return 0;
 }
@@ -159,7 +159,7 @@ static int cap_inode_rmdir(struct inode *inode, struct dentry *dentry)
 }
 
 static int cap_inode_mknod(struct inode *inode, struct dentry *dentry,
-			   umode_t mode, dev_t dev)
+			   int mode, dev_t dev)
 {
 	return 0;
 }
