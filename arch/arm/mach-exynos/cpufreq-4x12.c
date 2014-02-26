@@ -25,6 +25,8 @@
 #include <plat/clock.h>
 #include <plat/cpu.h>
 
+#define CPUFREQ_LEVEL_END	(L14 + 1)
+
 #undef PRINT_DIV_VAL
 
 #undef ENABLE_CLKOUT
