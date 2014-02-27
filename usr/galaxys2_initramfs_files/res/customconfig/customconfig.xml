@@ -214,6 +214,12 @@ name="ZRAM Size" action="zram_size" unit="MB" min="0" reversed="false" step="32"
 <checkbox description="Enable or Disable Navigation Bar (needs restart)" name="Navigation Bar" action="navigationbar" label="Navigation Bar"/>
 </settingsPane>
 </settingsTab>
+<settingsTab name="Modules">
+<settingsPane description="Here you can choose optional kernel modules. If you don't know what they mean then there is no point in enabling them. Needs restart." name="Optional Modules">
+<checkbox description="This enables SMB/CIFS/NFS Network Modules. These modules are responsible for managing your network shares. It is used to mount/unmount network file resources on to your device." name="SMB/CIFS/NFS Network Modules" action="generic /tmp/cifs" label="SMB/CIFS/NFS Network Modules"/>
+<checkbox description="SCSI Scan Wait is responsible to wait until all the asynchronous scans are complete. It will wait after all root SCSI drivers have finished scanning their busses. Note that use of this module can increase your bootup time." name="Small Computer System Interface Wait Scan" action="generic /tmp/scsi" label="SCSI Wait Scan"/>
+</settingsPane>
+</settingsTab>
 <settingsTab name="Misc">
 <settingsPane description="Misc Settings" name="Misc Settings">
 <checkbox description="Enable or Disable Android Logger (needs reboot)" name="Android Logger" action="generic /tmp/logger" label="Android Logger"/>

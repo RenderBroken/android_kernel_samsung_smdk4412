@@ -23,9 +23,6 @@ fi
 read_defaults
 read_config
 
-#cpu undervolting
-echo "${cpu_undervolting}" > /sys/devices/system/cpu/cpu0/cpufreq/vdd_levels
-
 # disable debugging on some modules
 if [ "$logger" == "off" ];then
   rm -rf /dev/log
@@ -52,6 +49,23 @@ fi
 # install kernel modules
 mount -o remount,rw /system
 rm /system/lib/modules/*.ko
+# install wifi module
+cp /modules/dhd.ko /system/lib/modules/
+# install fm radio module
+cp /modules/Si4709_driver.ko /system/lib/modules/
+# check if optional modules should be installed
+if [ "$cifs" == "on" ];then
+cp /modules/auth_rpcgss.ko /system/lib/modules/
+cp /modules/cifs.ko /system/lib/modules/
+cp /modules/lockd.ko /system/lib/modules/
+cp /modules/nfs.ko /system/lib/modules/
+cp /modules/rpcsec_gss_krb5.ko /system/lib/modules/
+cp /modules/sunrpc.ko /system/lib/modules/
+fi
+if [ "$scsi" == "on" ];then
+cp /modules/scsi_wait_scan.ko /system/lib/modules/
+fi
+
 cp /modules/*.ko /system/lib/modules/
 chmod 0644 /system/lib/modules/*.ko
 
