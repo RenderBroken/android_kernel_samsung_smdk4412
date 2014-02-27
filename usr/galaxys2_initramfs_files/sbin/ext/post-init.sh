@@ -66,7 +66,6 @@ if [ "$scsi" == "on" ];then
 cp /modules/scsi_wait_scan.ko /system/lib/modules/
 fi
 
-cp /modules/*.ko /system/lib/modules/
 chmod 0644 /system/lib/modules/*.ko
 
 ### Disables Built In Error Reporting
