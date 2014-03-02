@@ -34,7 +34,6 @@ file /res/customconfig/default.profile /home/gustavo/kernel/usr/galaxys2_initram
 dir /res/customconfig/actions 755 0 0
 file /res/customconfig/actions/gps /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gps 755 0 0
 file /res/customconfig/actions/bln_effect /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/bln_effect 755 0 0
-file /res/customconfig/actions/selinux /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/selinux 755 0 0
 file /res/customconfig/actions/chargecurrent /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/chargecurrent 755 0 0
 file /res/customconfig/actions/cpu-voltage /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/cpu-voltage 755 0 0
 file /res/customconfig/actions/generic /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/generic 755 0 0
