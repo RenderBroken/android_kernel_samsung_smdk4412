@@ -207,10 +207,6 @@ name="ZRAM Size" action="zram_size" unit="MB" min="0" reversed="false" step="32"
 <spinnerItem name="Oceania" value="5"/>
 <spinnerItem name="South America" value="6"/>
 </spinner>
-<spinner description="Set SELinux to permissive or enforce." name="SELinux Mode" action="selinux">
-<spinnerItem name="Permissive" value="0"/>
-<spinnerItem name="Enforce" value="1"/>
-</spinner>
 <checkbox description="Enable or Disable Navigation Bar (needs restart)" name="Navigation Bar" action="navigationbar" label="Navigation Bar"/>
 </settingsPane>
 </settingsTab>

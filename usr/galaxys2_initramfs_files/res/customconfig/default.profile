@@ -51,7 +51,6 @@ GENTLE_FAIR_SLEEPERS=off
 ARCH_POWER=on
 pwm_value=50
 gps=0
-selinux=0
 navigationbar=off
 cifs=off
 scsi=off
