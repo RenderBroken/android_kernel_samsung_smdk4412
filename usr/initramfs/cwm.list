@@ -22,8 +22,8 @@ dir /stage1 755 0 0
 file /stage1/busybox /home/gustavo/kernel/usr/galaxys2_initramfs_files/busybox 755 0 0
 file /stage1/init /home/gustavo/kernel/usr/galaxys2_initramfs_files/init 755 0 0
 dir /res 755 0 0
-file /res/gpucat /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gpucat 755 0 0
-file /res/gpuwatch /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/gpuwatch 755 0 0
+file /res/systemcat /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/systemcat 755 0 0
+file /res/systemstatus /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/systemstatus 755 0 0
 file /res/uci.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/uci.sh 755 01000 01003
 file /res/update.url /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/update.url 755 01000 01003
 file /res/lights.exynos4.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/lights.exynos4.so 755 0 0

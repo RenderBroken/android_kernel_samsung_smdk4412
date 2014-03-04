@@ -72,14 +72,14 @@ chmod 0644 /system/lib/modules/*.ko
 setprop profiler.force_disable_err_rpt 1
 setprop profiler.force_disable_ulog 1
 
-# gpu watch
-cp /res/gpuwatch /system/bin/gpuwatch
-chown root.system /system/bin/gpuwatch
-chmod 0755 /system/bin/gpuwatch
+# system status
+cp /res/systemstatus /system/bin/systemstatus
+chown root.system /system/bin/systemstatus
+chmod 0755 /system/bin/systemstatus
 
-cp /res/gpucat /system/bin/gpucat
-chown root.system /system/bin/gpucat
-chmod 0755 /system/bin/gpucat
+cp /res/systemcat /system/bin/systemcat
+chown root.system /system/bin/systemcat
+chmod 0755 /system/bin/systemcat
 
 # install lights lib needed by BLN
 rm /system/lib/hw/lights.exynos4.so
@@ -96,8 +96,8 @@ setprop net.dns2 8.8.4.4
 echo "100" > /sys/kernel/mm/ksm/pages_to_scan
 echo "500" > /sys/kernel/mm/ksm/sleep_millisecs
 
-sysctl -w vm.dirty_background_ratio=10;
-sysctl -w vm.dirty_ratio=20;
+sysctl -w vm.dirty_background_ratio=5;
+sysctl -w vm.dirty_ratio=10;
 # low swapiness to use swap only when the system 
 # is under extreme memory pressure
 sysctl -w vm.swappiness=25;
