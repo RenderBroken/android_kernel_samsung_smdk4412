@@ -1,21 +1,71 @@
-rm /home/gustavo/zips/*.zip
-cp /home/gustavo/kernel/arch/arm/configs/kernel_defconfig /home/gustavo/kernel/.config
-make -j3
-find -name '*.ko' -exec cp -av {} /home/gustavo/kernel/usr/galaxys2_initramfs_files/modules/ \;
-chmod 644 /home/gustavo/kernel/usr/galaxys2_initramfs_files/modules/*
-/home/gustavo/toolchain/bin/arm-gnueabi-strip --strip-unneeded /home/gustavo/kernel/usr/galaxys2_initramfs_files/modules/*
-make -j3 zImage CONFIG_INITRAMFS_SOURCE="/home/gustavo/kernel/usr/initramfs/cwm.list"
-cp /home/gustavo/kernel/arch/arm/boot/zImage /home/gustavo/zip_tmp/
+#!/bin/bash
+
+TOOLCHAIN="/home/gustavo/toolchain/bin/arm-cortex_a9-linux-gnueabihf-"
+STRIP="/home/gustavo/toolchain/bin/arm-gnueabi-strip"
+OUTDIR="out"
+KK_CWM_INITRAMFS_SOURCE="/home/gustavo/kernel/usr/initramfs/cwm.list"
+KK_TWRP_INITRAMFS_SOURCE="/home/gustavo/kernel/usr/initramfs/twrp.list"
+JB_INITRAMFS_SOURCE="/home/gustavo/kernel/usr/initramfs/jb.list"
+MODULES=("/home/gustavo/kernel/net/sunrpc/auth_gss/auth_rpcgss.ko" "/home/gustavo/kernel/fs/cifs/cifs.ko" "drivers/net/wireless/bcmdhd/dhd.ko" "/home/gustavo/kernel/fs/lockd/lockd.ko" "/home/gustavo/kernel/fs/nfs/nfs.ko" "/home/gustavo/kernel/net/sunrpc/auth_gss/rpcsec_gss_krb5.ko" "drivers/scsi/scsi_wait_scan.ko" "drivers/samsung/fm_si4709/Si4709_driver.ko" "/home/gustavo/kernel/net/sunrpc/sunrpc.ko")
+KERNEL_DIR="/home/gustavo/kernel"
+MODULES_DIR="/home/gustavo/kernel/usr/galaxys2_initramfs_files/modules"
+INITRAMFS_DIR="/home/gustavo/kernel/usr/galaxys2_initramfs_files/ramdisk"
+INITRAMFS_OUT="/home/gustavo/kernel/usr/galaxys2_initramfs_files/initramfs"
 CURRENTDATE=$(date +"%d-%m")
-cd /home/gustavo/zip_tmp
-rm *.zip
-zip -r kk-kernel-$CURRENTDATE-CWM.zip ./
-cp ./*.zip /home/gustavo/zips/kk-kernel-$CURRENTDATE-CWM.zip
-cd /home/gustavo/kernel
-make -j3 zImage CONFIG_INITRAMFS_SOURCE="/home/gustavo/kernel/usr/initramfs/twrp.list"
-cp /home/gustavo/kernel/arch/arm/boot/zImage /home/gustavo/zip_tmp/
-CURRENTDATE=$(date +"%d-%m")
-cd /home/gustavo/zip_tmp
-rm *.zip
-zip -r kk-kernel-$CURRENTDATE-TWRP.zip ./
-cp ./*.zip /home/gustavo/zips/kk-kernel-$CURRENTDATE-TWRP.zip
+
+case "$1" in
+	clean)
+        cd ${KERNEL_DIR}
+        make clean && make mrproper
+		;;
+	kk)
+        cd ${KERNEL_DIR}
+        make -j3 kernel_defconfig ARCH=arm CROSS_COMPILE=${TOOLCHAIN}
+
+        # build modules first to include them into android ramdisk
+        make -j3 ARCH=arm CROSS_COMPILE=${TOOLCHAIN} modules
+       
+        for module in "${MODULES[@]}" ; do
+            cp "${module}" ${MODULES_DIR}
+            ${STRIP} --strip-unneeded ${MODULES_DIR}/*
+        done
+      
+        # build the CWM kernel
+        cd ${KERNEL_DIR}
+        make -j3 ARCH=arm CROSS_COMPILE=${TOOLCHAIN} CONFIG_INITRAMFS_SOURCE=${KK_CWM_INITRAMFS_SOURCE}
+        cp arch/arm/boot/zImage ${OUTDIR}
+        cd ${OUTDIR}
+		echo "Creating kk CWM kernel zip..."
+        zip -r kk-kernel-$CURRENTDATE-CWM.zip ./ -x *.zip
+        # build the TWRP kernel
+        cd ${KERNEL_DIR}
+        make -j3 ARCH=arm CROSS_COMPILE=${TOOLCHAIN} CONFIG_INITRAMFS_SOURCE=${KK_TWRP_INITRAMFS_SOURCE}
+        cp arch/arm/boot/zImage ${OUTDIR}
+        cd ${OUTDIR}
+		echo "Creating kk TWRP kernel zip..."
+        zip -r kk-kernel-$CURRENTDATE-TWRP.zip ./ -x *.zip
+        
+		echo "Done!"
+	    ;;
+	  jb)
+	    cd ${KERNEL_DIR}
+        make kernel_defconfig ARCH=arm CROSS_COMPILE=${TOOLCHAIN}
+
+        # build modules first to include them into android ramdisk
+        make -j3 ARCH=arm CROSS_COMPILE=${TOOLCHAIN} modules
+       
+        for module in "${MODULES[@]}" ; do
+            cp "${module}" ${MODULES_DIR}
+            ${STRIP} --strip-unneeded ${MODULES_DIR}/*
+        done
+      
+        # build the jelly bean kernel
+        cd ${KERNEL_DIR}
+        make -j3 ARCH=arm CROSS_COMPILE=${TOOLCHAIN} CONFIG_INITRAMFS_SOURCE=${JB_INITRAMFS_SOURCE} zImage
+        cp arch/arm/boot/zImage ${OUTDIR}
+        cd ${OUTDIR}
+		echo "Creating jb kernel zip..."
+        zip -r jb-kernel-$CURRENTDATE.zip ./ -x *.zip
+        
+        echo "Done!"
+esac
