@@ -36,14 +36,14 @@ case "$1" in
         cp arch/arm/boot/zImage ${OUTDIR}
         cd ${OUTDIR}
 		echo "Creating kk CWM kernel zip..."
-        zip -r kk-kernel-$CURRENTDATE-CWM.zip ./ -x *.zip
+        zip -r kk-kernel-$CURRENTDATE-CWM.zip ./ -x *.zip /system/* *.gitignore
         # build the TWRP kernel
         cd ${KERNEL_DIR}
         make -j3 ARCH=arm CROSS_COMPILE=${TOOLCHAIN} CONFIG_INITRAMFS_SOURCE=${KK_TWRP_INITRAMFS_SOURCE}
         cp arch/arm/boot/zImage ${OUTDIR}
         cd ${OUTDIR}
 		echo "Creating kk TWRP kernel zip..."
-        zip -r kk-kernel-$CURRENTDATE-TWRP.zip ./ -x *.zip
+        zip -r kk-kernel-$CURRENTDATE-TWRP.zip ./ -x *.zip /system/* *.gitignore
         
 		echo "Done!"
 	    ;;
@@ -65,7 +65,7 @@ case "$1" in
         cp arch/arm/boot/zImage ${OUTDIR}
         cd ${OUTDIR}
 		echo "Creating jb kernel zip..."
-        zip -r jb-kernel-$CURRENTDATE.zip ./ -x *.zip
+        zip -r jb-kernel-$CURRENTDATE.zip ./ -x *.zip *.gitignore
         
         echo "Done!"
 esac
