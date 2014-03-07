@@ -1,0 +1,26 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  hotplug=$2
+fi
+
+mount -o remount,rw /
+
+case "${hotplug}" in
+  0)
+    echo "1" > /sys/module/auto_hotplug/parameters/min_online_cpus
+    echo "2" > /sys/module/auto_hotplug/parameters/max_online_cpus
+    ;;
+  1)
+    echo "1" > /sys/module/auto_hotplug/parameters/min_online_cpus
+    echo "1" > /sys/module/auto_hotplug/parameters/max_online_cpus
+    ;;
+  2)
+    echo "2" > /sys/module/auto_hotplug/parameters/min_online_cpus
+    echo "2" > /sys/module/auto_hotplug/parameters/max_online_cpus
+    ;;
+esac;
+
+mount -o remount,ro /
+
+echo $hotplug
