@@ -7,16 +7,10 @@ fi
 mount -o remount,rw /
 
 case "${hotplug}" in
-  0)
-    echo "1" > /sys/module/auto_hotplug/parameters/min_online_cpus
-    echo "2" > /sys/module/auto_hotplug/parameters/max_online_cpus
-    ;;
-  1)
-    echo "1" > /sys/module/auto_hotplug/parameters/min_online_cpus
+  on)
     echo "1" > /sys/module/auto_hotplug/parameters/max_online_cpus
     ;;
-  2)
-    echo "2" > /sys/module/auto_hotplug/parameters/min_online_cpus
+  off)
     echo "2" > /sys/module/auto_hotplug/parameters/max_online_cpus
     ;;
 esac;

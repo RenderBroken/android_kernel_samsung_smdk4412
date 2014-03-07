@@ -19,12 +19,8 @@ name="scaling_max_freq" action="generic /sys/devices/system/cpu/cpu0/cpufreq/sca
 <seekBar description="Scaling minimum frequency (Samsung default: 200000)"
 name="scaling_min_freq" action="generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq" unit=" kHz" min="200000" reversed="false" step="300000" max="800000"/>
 </settingsPane>
-<settingsPane description="Here you can choose auto hotplug, force to have always dual core mode or mono core mode." name="CPU Hotplug Control">
-<spinner description="Auto Hotplug lets the kernel handle when to bring the second core online (default). Mono core mode will make the second core to be always disabled. Dual core mode will ensure that both cores are always enabled. " name="CPU Hotplug Mode" action="hotplug">
-<spinnerItem name="Auto Hotplug" value="0"/>
-<spinnerItem name="Mono-core" value="1"/>
-<spinnerItem name="Dual-core" value="2"/>
-</spinner>
+<settingsPane description="Here you can choose to disable the second core." name="CPU Hotplug Control">
+<checkbox description="This will force second core to be always disabled. Turn screen off/on after enabling." name="CPU Mono-core mode" action="hotplug" label="Mono-core Mode"/>
 </settingsPane>
 <settingsPane description="CPU Voltage Controls. WARNING: Too low voltages can cause freezes, and freezes can cause data corruption! Undervolting limits can vary from device to device." name="CPU Voltage Controls">
 <seekBar description="CPU Voltage for 1400 MHz. (Default: 1325 mV)"

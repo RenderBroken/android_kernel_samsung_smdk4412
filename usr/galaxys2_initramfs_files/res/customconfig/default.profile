@@ -1,7 +1,7 @@
 scaling_governor=ondemand
 scaling_max_freq=1200000
 scaling_min_freq=200000
-hotplug=0
+hotplug=off
 CPUVOLT1=1325
 CPUVOLT2=1275
 CPUVOLT3=1175
