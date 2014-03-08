@@ -7,9 +7,10 @@ CPU_ONLINE=$(cat /sys/devices/system/cpu/cpu1/online)
 GPU_FREQ=$(cat /sys/module/mali/parameters/mali_gpu_clk)MHz
 GPU_VOLT=$(($(cat /sys/module/mali/parameters/mali_gpu_vol)/1000))
 ENTROPY=$(cat /proc/sys/kernel/random/entropy_avail)
+NUM_CPUS=$(($CPU_ONLINE + 1))
 
 echo CPU: $CPU_VOLT
 echo CPU Load: $CPU_LOAD %
-echo 2nd Core Online: $CPU_ONLINE
+echo CPU Cores Online: $NUM_CPUS
 echo GPU: $GPU_FREQ: $GPU_VOLT mV
 echo Entropy: $ENTROPY
