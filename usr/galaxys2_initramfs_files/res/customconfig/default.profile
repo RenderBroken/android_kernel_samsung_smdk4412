@@ -56,6 +56,5 @@ navigationbar=off
 cifs=off
 scsi=off
 logger=on
-chargecurrent=1
 usb_mode=1
 default_stats=off

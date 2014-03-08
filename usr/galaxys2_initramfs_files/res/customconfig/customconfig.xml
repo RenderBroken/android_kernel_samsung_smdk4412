@@ -222,11 +222,6 @@ name="ZRAM Size" action="zram_size" unit="MB" min="0" reversed="false" step="32"
 <settingsTab name="Misc">
 <settingsPane description="Misc Settings" name="Misc Settings">
 <checkbox description="Enable or Disable Android Logger (needs reboot)" name="Android Logger" action="generic /tmp/logger" label="Android Logger"/>
-<spinner description="Charge current setting" name="Charge Current" action="chargecurrent">
-<spinnerItem name="AC:650mA, Misc,USB:450mA (Stock)" value="1"/>
-<spinnerItem name="AC,Misc:650mA, USB:450mA" value="2"/>
-<spinnerItem name="All:650mA (risky for USB ports)" value="3"/>
-</spinner>
 <checkbox description="If checked, BetterBatteryStatus will report discrete (non-overlapping) wakelock statistics." name="Discrete Wakelock Stats" action="generic01 /sys/module/wakelock/parameters/default_stats" label="Discrete Wakelock Stats"/>
 <button description="If you think that the fuel gauge chip is behaving weird use this button to reset it. Give it a few hours after you reset the gauge. It may still show you funny values for those period, then the battery percentage should be fine." name="Reset Fuel-Gauge Chip" action="reset-fuelgauge" label="Reset Fuel-Gauge Chip"/>
 </settingsPane>
