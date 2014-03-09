@@ -39,45 +39,54 @@ name="CPU Voltage 200 MHz" action="cpu-voltage 6" unit="mV" min="850" reversed="
 </settingsTab>
 <settingsTab name="GPU">
 <settingsPane description="GPU Frequency Settings. Default frequencies are 108, 160, 200 and 267. Voltage defaults are 850mV, 850mV, 900mV and 950mV." name="GPU FREQUENCY">
-<checkbox description="Enabling VPLL mode may be unstable on some devices. If you do not use VPLL Mode some frequency steps will be unavailable." name="VPLL Mode" action="generic01 /sys/module/mali/parameters/mali_use_vpll" label="VPLL Mode"/>
+<checkbox description="Enabling VPLL mode may be unstable on some devices. If you do not use VPLL Mode some frequency steps will be unavailable. Be CAREFUL with voltages." name="VPLL Mode" action="generic01 /sys/module/mali/parameters/mali_use_vpll" label="VPLL Mode"/>
 <spinner description="Changes the first GPU frequency step" name="GPU Freq Step1" action="gpu-freq 1">
+<spinnerItem name="520MHz (vpll)" value="520"/>
+<spinnerItem name="440MHz (vpll)" value="440"/>
+<spinnerItem name="400MHz" value="400"/>
+<spinnerItem name="330MHz (vpll)" value="330"/>
 <spinnerItem name="267MHz" value="267"/>
 <spinnerItem name="200MHz" value="200"/>
 <spinnerItem name="160MHz" value="160"/>
-<spinnerItem name="133MHz" value="134"/>
 <spinnerItem name="108MHz" value="108"/>
-<spinnerItem name="66MHz" value="66"/> 
-<spinnerItem name="54MHz" value="54"/> 
+<spinnerItem name="66MHz (vpll)" value="66"/> 
+<spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 <spinner description="Changes the second GPU frequency step" name="GPU Freq Step2" action="gpu-freq 2">
+<spinnerItem name="520MHz (vpll)" value="520"/>
+<spinnerItem name="440MHz (vpll)" value="440"/>
 <spinnerItem name="400MHz" value="400"/>
-<spinnerItem name="330MHz" value="330"/>
+<spinnerItem name="330MHz (vpll)" value="330"/>
 <spinnerItem name="267MHz" value="267"/>
 <spinnerItem name="200MHz" value="200"/>
 <spinnerItem name="160MHz" value="160"/>
-<spinnerItem name="133MHz" value="134"/>
 <spinnerItem name="108MHz" value="108"/>
-<spinnerItem name="66MHz" value="66"/> 
+<spinnerItem name="66MHz (vpll)" value="66"/> 
+<spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 <spinner description="Changes the third GPU frequency step" name="GPU Freq Step3" action="gpu-freq 3">
+<spinnerItem name="520MHz (vpll)" value="520"/>
+<spinnerItem name="440MHz (vpll)" value="440"/>
 <spinnerItem name="400MHz" value="400"/>
-<spinnerItem name="330MHz" value="330"/>
+<spinnerItem name="330MHz (vpll)" value="330"/>
 <spinnerItem name="267MHz" value="267"/>
 <spinnerItem name="200MHz" value="200"/>
 <spinnerItem name="160MHz" value="160"/>
-<spinnerItem name="133MHz" value="134"/>
 <spinnerItem name="108MHz" value="108"/>
+<spinnerItem name="66MHz (vpll)" value="66"/> 
+<spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 <spinner description="Changes the fourth GPU frequency step" name="GPU Freq Step4" action="gpu-freq 4">
-<spinnerItem name="520MHz" value="520"/>
-<spinnerItem name="440MHz" value="440"/>
+<spinnerItem name="520MHz (vpll)" value="520"/>
+<spinnerItem name="440MHz (vpll)" value="440"/>
 <spinnerItem name="400MHz" value="400"/>
-<spinnerItem name="330MHz" value="330"/>
+<spinnerItem name="330MHz (vpll)" value="330"/>
 <spinnerItem name="267MHz" value="267"/>
 <spinnerItem name="200MHz" value="200"/>
 <spinnerItem name="160MHz" value="160"/>
-<spinnerItem name="133MHz" value="134"/>
 <spinnerItem name="108MHz" value="108"/>
+<spinnerItem name="66MHz (vpll)" value="66"/> 
+<spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 </settingsPane>
 <settingsPane description="GPU Voltage Levels: The defaults are 850, 850, 900 and 950. WARNING: Too low voltages can cause freezes, and freezes can cause data corruption! Undervolting limits can vary from device to device." name="GPU Voltage Levels">
