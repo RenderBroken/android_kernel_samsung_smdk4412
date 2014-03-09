@@ -415,6 +415,7 @@ mali_bool mali_clk_get(mali_bool bis_vpll)
 			}
 		}
 	}
+}
 	else /* mpll */
 	{
 		if (mpll_clock == NULL)
