@@ -81,7 +81,7 @@ typedef struct mali_dvfs_statusTag{
 mali_dvfs_status_t maliDvfsStatus;
 int mali_dvfs_control;
 
-int step0_clk = 100;
+int step0_clk = 108;
 int step0_vol = 850000;
 int step1_clk = 160;
 int step1_vol = 900000;
@@ -113,7 +113,7 @@ mali_dvfs_table mali_dvfs[MALI_DVFS_STEPS]={
 			/* step 3 */{440  ,1000000	,1025000   ,85   , 90},
 			/* step 4 */{533  ,1000000	,1075000   ,95   ,100} };
 #else
-			/* step 0 */{100  ,1000000	, 850000   ,85   , 90},
+			/* step 0 */{108  ,1000000	, 850000   ,85   , 90},
 			/* step 1 */{160  ,1000000	, 900000   ,60   , 90},
 			/* step 1 */{200  ,1000000	, 950000   ,75   , 90},
 			/* step 1 */{267  ,1000000	, 950000   ,70   ,100}};
@@ -188,9 +188,9 @@ static unsigned int asv_3d_volt_4210_12_table[MALI_DVFS_STEPS][ASV_LEVEL_4210_12
 #if (MALI_DVFS_STEPS > 1)
 	{  1150000,  1100000,  1050000,   1000000,   950000,   900000,   850000,   800000},	/* L2(160Mhz) */
 #if (MALI_DVFS_STEPS > 2)
-	{  1150000,  1100000,  1050000,   1000000,   950000,   900000,   850000,   800000},	/* L1(200Mhz) */
+	{  1200000,  1150000,  1100000,   1050000,   1000000,   950000,   900000,   850000},	/* L1(200Mhz) */
 #if (MALI_DVFS_STEPS > 3)
-	{  1150000,  1100000,  1050000,   1000000,   950000,   900000,   850000,   800000},	/* L0(266Mhz) */
+	{  1400000,  1350000,  1300000,   1200000,   1100000,   1000000,   950000,   900000},	/* L0(266Mhz) */
 #endif
 #endif
 #endif
@@ -240,8 +240,9 @@ int mali_gpu_clk = 440;
 int mali_gpu_vol = 1025000;
 #else
 /* Orion */
-static const mali_bool bis_vpll = MALI_FALSE;
-int mali_gpu_clk = 267;
+extern int mali_use_vpll;
+
+int mali_gpu_clk = 108;
 int mali_gpu_vol = 950000;
 #endif
 
@@ -307,6 +308,7 @@ void mali_regulator_disable(void)
 		return;
 	}
 	regulator_disable(g3d_regulator);
+	bPoweroff = 1;
 }
 
 void mali_regulator_enable(void)
@@ -317,6 +319,7 @@ void mali_regulator_enable(void)
 		return;
 	}
 	regulator_enable(g3d_regulator);
+	bPoweroff = 0;
 }
 
 void mali_regulator_set_voltage(int min_uV, int max_uV)
@@ -347,9 +350,9 @@ static unsigned int get_mali_dvfs_status(void)
 	return maliDvfsStatus.currentStep;
 }
 
-mali_bool mali_clk_get(void)
+mali_bool mali_clk_get(mali_bool bis_vpll)
 {
-	if (bis_vpll)
+	if (bis_vpll == MALI_TRUE) {
 	{
 		if (ext_xtal_clock == NULL)
 		{
@@ -358,6 +361,7 @@ mali_bool mali_clk_get(void)
 				MALI_PRINT(("MALI Error : failed to get source ext_xtal_clock\n"));
 				return MALI_FALSE;
 			}
+			clk_enable(ext_xtal_clock);
 		}
 
 		if (vpll_src_clock == NULL)
@@ -367,6 +371,7 @@ mali_bool mali_clk_get(void)
 				MALI_PRINT(("MALI Error : failed to get source vpll_src_clock\n"));
 				return MALI_FALSE;
 			}
+			clk_enable(vpll_src_clock);
 		}
 
 		if (fout_vpll_clock == NULL)
@@ -376,6 +381,7 @@ mali_bool mali_clk_get(void)
 				MALI_PRINT(("MALI Error : failed to get source fout_vpll_clock\n"));
 				return MALI_FALSE;
 			}
+			clk_enable(fout_vpll_clock);
 		}
 
 		if (sclk_vpll_clock == NULL)
@@ -385,6 +391,7 @@ mali_bool mali_clk_get(void)
 				MALI_PRINT(("MALI Error : failed to get source sclk_vpll_clock\n"));
 				return MALI_FALSE;
 			}
+			clk_enable(sclk_vpll_clock);
 		}
 
 		if (mali_parent_clock == NULL)
@@ -395,6 +402,7 @@ mali_bool mali_clk_get(void)
 				MALI_PRINT(( "MALI Error : failed to get source mali parent clock\n"));
 				return MALI_FALSE;
 			}
+			clk_enable(mali_parent_clock);
 		}
 
 		if (mali_mout0_clock == NULL)
@@ -495,17 +503,19 @@ void mali_clk_put(mali_bool binc_mali_clock)
 	}
 }
 
-void mali_clk_set_rate(unsigned int clk, unsigned int mhz)
+mali_bool mali_clk_set_rate(unsigned int clk, unsigned int mhz)
 {
+	mali_bool bis_vpll = mali_use_vpll;
+	
 	int err;
 	unsigned long rate = (unsigned long)clk * (unsigned long)mhz;
 
 	_mali_osk_lock_wait(mali_dvfs_lock, _MALI_OSK_LOCKMODE_RW);
 	MALI_DEBUG_PRINT(3, ("Mali platform: Setting frequency to %d mhz\n", clk));
 
-	if (mali_clk_get() == MALI_FALSE) {
-	_mali_osk_lock_signal(mali_dvfs_lock, _MALI_OSK_LOCKMODE_RW);
-		return;
+	if (mali_clk_get(bis_vpll) == MALI_FALSE) {
+		_mali_osk_lock_signal(mali_dvfs_lock, _MALI_OSK_LOCKMODE_RW);
+		return MALI_FALSE;
 	}
 
 	if (bis_vpll)
@@ -526,7 +536,7 @@ void mali_clk_set_rate(unsigned int clk, unsigned int mhz)
 	if (atomic_read(&clk_active) == 0) {
 		if (clk_enable(mali_clock) < 0) {
 			_mali_osk_lock_signal(mali_dvfs_lock, _MALI_OSK_LOCKMODE_RW);
-			return;
+			return MALI_FALSE;
 		}
 		atomic_set(&clk_active, 1);
 	}
@@ -536,14 +546,20 @@ void mali_clk_set_rate(unsigned int clk, unsigned int mhz)
 		MALI_PRINT_ERROR(("Failed to set Mali clock: %d\n", err));
 
 	rate = mali_clk_get_rate();
+	
+	if (bis_vpll)
+		mali_gpu_clk = (int)(rate / mhz);
+	else
+		mali_gpu_clk = (int)((rate + 500000) / mhz);
 
 	MALI_DEBUG_PRINT(1, ("Mali frequency %d\n", rate / mhz));
 	GPU_MHZ = mhz;
-	mali_gpu_clk = (int)(rate / mhz);
 
 	mali_clk_put(MALI_FALSE);
 
 	_mali_osk_lock_signal(mali_dvfs_lock, _MALI_OSK_LOCKMODE_RW);
+	
+	return MALI_TRUE;
 }
 
 int get_mali_dvfs_control_status(void)
@@ -998,8 +1014,7 @@ mali_bool mali_dvfs_handler(unsigned int utilization)
 static mali_bool init_mali_clock(void)
 {
 	mali_bool ret = MALI_TRUE;
-	gpu_power_state = 1;
-	bPoweroff = 1;
+	mali_bool bis_vpll = mali_use_vpll;
 
 	if (mali_clock != 0)
 		return ret; /* already initialized */
@@ -1009,9 +1024,10 @@ static mali_bool init_mali_clock(void)
 	if (mali_dvfs_lock == NULL)
 		return _MALI_OSK_ERR_FAULT;
 
-	if (!mali_clk_get())
+	if (!mali_clk_get(bis_vpll))
 	{
 		MALI_PRINT(("Error: Failed to get Mali clock\n"));
+		ret = MALI_FALSE;
 		goto err_clk;
 	}
 
@@ -1052,6 +1068,9 @@ static mali_bool init_mali_clock(void)
 	mali_clk_put(MALI_FALSE);
 
 	return MALI_TRUE;
+	
+	gpu_power_state = 0;
+	bPoweroff = 1;
 
 #ifdef CONFIG_REGULATOR
 err_regulator:
@@ -1090,7 +1109,6 @@ static _mali_osk_errcode_t enable_mali_clocks(void)
 		err = clk_enable(mali_clock);
 		MALI_DEBUG_PRINT(3,("enable_mali_clocks mali_clock %p error %d \n", mali_clock, err));
 		atomic_set(&clk_active, 1);
-		gpu_power_state = 1;
 	}
 
 	/* set clock rate */
@@ -1127,7 +1145,6 @@ static _mali_osk_errcode_t disable_mali_clocks(void)
 	if (atomic_read(&clk_active) == 1) {
 		clk_disable(mali_clock);
 		atomic_set(&clk_active, 0);
-		gpu_power_state = 0;
 	}
 	MALI_DEBUG_PRINT(3, ("disable_mali_clocks mali_clock %p \n", mali_clock));
 
@@ -1229,6 +1246,9 @@ _mali_osk_errcode_t mali_platform_deinit(struct device *dev)
 	MALI_SUCCESS;
 }
 
+void mali_force_mpll(void);
+void mali_restore_vpll_mode(void);
+
 _mali_osk_errcode_t mali_platform_power_mode_change(struct device *dev, mali_power_mode power_mode)
 {
 	switch (power_mode)
@@ -1243,6 +1263,8 @@ _mali_osk_errcode_t mali_platform_power_mode_change(struct device *dev, mali_pow
 #endif
 				MALI_DEBUG_PRINT(4, ("enable clock \n"));
 				enable_mali_clocks();
+				mali_restore_vpll_mode();
+				gpu_power_state = 1;
 #if defined(CONFIG_MALI400_PROFILING)
 				_mali_osk_profiling_add_event(MALI_PROFILING_EVENT_TYPE_SINGLE |
 						MALI_PROFILING_EVENT_CHANNEL_GPU |
@@ -1260,6 +1282,7 @@ _mali_osk_errcode_t mali_platform_power_mode_change(struct device *dev, mali_pow
 						"MALI_POWER_MODE_DEEP_SLEEP", bPoweroff ? "already off" : "powering off"));
 			if (bPoweroff == 0)
 			{
+				mali_force_mpll();
 				disable_mali_clocks();
 #if defined(CONFIG_MALI400_PROFILING)
 				_mali_osk_profiling_add_event(MALI_PROFILING_EVENT_TYPE_SINGLE |
@@ -1271,6 +1294,7 @@ _mali_osk_errcode_t mali_platform_power_mode_change(struct device *dev, mali_pow
 #if !defined(CONFIG_PM_RUNTIME)
 				g3d_power_domain_control(0);
 #endif
+				gpu_power_state = 0;
 				bPoweroff=1;
 			}
 
@@ -1383,6 +1407,20 @@ int mali_voltage_lock_init(void)
 	mali_vol_lock_flag = MALI_TRUE;
 
 	MALI_SUCCESS;
+}
+
+int mali_use_vpll_save;
+void mali_restore_vpll_mode(void)
+{
+	mali_use_vpll = mali_use_vpll_save;
+}
+
+void mali_force_mpll(void)
+{
+	mali_use_vpll_save = mali_use_vpll;
+	mali_use_vpll = false;
+	mali_regulator_set_voltage(mali_gpu_vol, mali_gpu_vol);
+	mali_clk_set_rate((unsigned int)mali_gpu_clk, GPU_MHZ);
 }
 
 int mali_vol_get_from_table(int vol)
