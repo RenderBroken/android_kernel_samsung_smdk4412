@@ -81,6 +81,11 @@ cp /res/systemcat /system/bin/systemcat
 chown root.system /system/bin/systemcat
 chmod 0755 /system/bin/systemcat
 
+# check if vpll is enabled
+if [ "$vpll" == "on" ];then
+echo "1" > /sys/module/mali/parameters/mali_use_vpll
+fi
+
 # install lights lib needed by BLN
 rm /system/lib/hw/lights.exynos4.so
 cp /res/lights.exynos4.so /system/lib/hw/lights.exynos4.so

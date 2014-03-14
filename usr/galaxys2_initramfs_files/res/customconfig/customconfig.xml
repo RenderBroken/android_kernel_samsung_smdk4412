@@ -39,9 +39,8 @@ name="CPU Voltage 200 MHz" action="cpu-voltage 6" unit="mV" min="850" reversed="
 </settingsTab>
 <settingsTab name="GPU">
 <settingsPane description="GPU Frequency Settings. Default frequencies are 108, 160, 200 and 267. Voltage defaults are 850mV, 850mV, 900mV and 950mV." name="GPU FREQUENCY">
-<checkbox description="Enabling VPLL mode may be unstable on some devices. If you do not use VPLL Mode some frequency steps will be unavailable. Be CAREFUL with voltages." name="VPLL Mode" action="generic01 /sys/module/mali/parameters/mali_use_vpll" label="VPLL Mode"/>
+<checkbox description="Enabling VPLL mode may be unstable on some devices. If you do not use VPLL Mode some frequency steps will be unavailable. Be CAREFUL with voltages. Needs restart." name="VPLL Mode" action="generic /tmp/vpll" label="VPLL Mode"/>
 <spinner description="Changes the first GPU frequency step" name="GPU Freq Step1" action="gpu-freq 1">
-<spinnerItem name="520MHz (vpll)" value="520"/>
 <spinnerItem name="440MHz (vpll)" value="440"/>
 <spinnerItem name="400MHz" value="400"/>
 <spinnerItem name="330MHz (vpll)" value="330"/>
@@ -53,7 +52,6 @@ name="CPU Voltage 200 MHz" action="cpu-voltage 6" unit="mV" min="850" reversed="
 <spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 <spinner description="Changes the second GPU frequency step" name="GPU Freq Step2" action="gpu-freq 2">
-<spinnerItem name="520MHz (vpll)" value="520"/>
 <spinnerItem name="440MHz (vpll)" value="440"/>
 <spinnerItem name="400MHz" value="400"/>
 <spinnerItem name="330MHz (vpll)" value="330"/>
@@ -65,7 +63,6 @@ name="CPU Voltage 200 MHz" action="cpu-voltage 6" unit="mV" min="850" reversed="
 <spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 <spinner description="Changes the third GPU frequency step" name="GPU Freq Step3" action="gpu-freq 3">
-<spinnerItem name="520MHz (vpll)" value="520"/>
 <spinnerItem name="440MHz (vpll)" value="440"/>
 <spinnerItem name="400MHz" value="400"/>
 <spinnerItem name="330MHz (vpll)" value="330"/>
@@ -77,7 +74,6 @@ name="CPU Voltage 200 MHz" action="cpu-voltage 6" unit="mV" min="850" reversed="
 <spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 <spinner description="Changes the fourth GPU frequency step" name="GPU Freq Step4" action="gpu-freq 4">
-<spinnerItem name="520MHz (vpll)" value="520"/>
 <spinnerItem name="440MHz (vpll)" value="440"/>
 <spinnerItem name="400MHz" value="400"/>
 <spinnerItem name="330MHz (vpll)" value="330"/>
@@ -131,8 +127,6 @@ name="min_gamma" action="generic /sys/class/misc/brightness_curve/min_gamma" uni
 name="max_gamma" action="generic /sys/class/misc/brightness_curve/max_gamma" unit="" min="0" reversed="false" step="1" max="20"/>
 </settingsPane>
 <settingsPane description="Other Settings" name="Other Settings">
-<seekBar description="Sets touchscreen move sensitivity (vitalij value)." 
-name="TouchMove Sensitivity" action="generic /sys/bus/i2c/devices/3-004a/mov_hysti" unit=" pixel" min="0" reversed="false" step="1" max="20"/>
 <seekBar description="User adjustable gamma shift."
 name="Gamma Shift" action="generic /sys/class/lcd/panel/user_gamma_adjust" unit="" min="-50" reversed="false" step="5" max="50"/>
 </settingsPane>
