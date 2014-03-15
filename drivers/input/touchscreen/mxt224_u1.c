@@ -498,7 +498,7 @@ static void mxt224_ta_probe(bool ta_status)
 				  size_one, &value);
 			/*move Filter */
 			value = copy_data->movfilter_batt_e;
-			register_address = 13;
+			register_address = 15;
 			write_mem(copy_data,
 				  obj_address + (u16) register_address,
 				  size_one, &value);
