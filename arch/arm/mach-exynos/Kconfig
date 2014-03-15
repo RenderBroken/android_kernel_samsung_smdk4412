@@ -524,12 +524,6 @@ choice
 	depends on EXYNOS_PM_HOTPLUG
 	default DVFS_NR_RUNNING_POLICY if (CPU_EXYNOS4212 || CPU_EXYNOS4412 || CPU_EXYNOS5250)
 
-config INTELLI_PLUG
-	bool "Enable intelli-plug cpu hotplug driver"
-	default n
-	help
-	  Generic Intelli-plug cpu hotplug driver for ARM SOCs
-
 config STAND_ALONE_POLICY
 	bool "Stand alone policy CPU hotplug"
 	depends on EXYNOS_PM_HOTPLUG

@@ -344,3 +344,5 @@ config OMAP3_SDRC_AC_TIMING
 	  going on could result in system crashes;
 
 endmenu
+
+endif
