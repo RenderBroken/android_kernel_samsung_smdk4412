@@ -314,7 +314,7 @@ static int s3c_pm_enter(suspend_state_t state)
 
 	/* flush cache back to ram */
 
-	flush_cache_all();
+	flush_cache_louis();
 
 	s3c_pm_check_store();
 

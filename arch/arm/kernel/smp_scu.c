@@ -68,7 +68,7 @@ void scu_enable(void __iomem *scu_base)
 	 * Ensure that the data accessed by CPU0 before the SCU was
 	 * initialised is visible to the other CPUs.
 	 */
-	flush_cache_all();
+	flush_cache_louis();
 
 #ifdef CONFIG_MACH_PX
 	logbuf_force_unlock();

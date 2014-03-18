@@ -126,7 +126,7 @@ static int __init early_cachepolicy(char *p)
 		printk(KERN_WARNING "Only cachepolicy=writeback supported on ARMv6 and later\n");
 		cachepolicy = CPOLICY_WRITEBACK;
 	}
-	flush_cache_all();
+	flush_cache_louis();
 	set_cr(cr_alignment);
 	return 0;
 }
@@ -989,7 +989,7 @@ static void __init devicemaps_init(struct machine_desc *mdesc)
 	 * back.  After this point, we can start to touch devices again.
 	 */
 	local_flush_tlb_all();
-	flush_cache_all();
+	flush_cache_louis();
 }
 
 static void __init kmap_init(void)

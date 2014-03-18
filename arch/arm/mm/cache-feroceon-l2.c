@@ -241,7 +241,7 @@ static int __init flush_and_disable_dcache(void)
 		unsigned long flags;
 
 		raw_local_irq_save(flags);
-		flush_cache_all();
+		flush_cache_louis();
 		set_cr(cr & ~CR_C);
 		raw_local_irq_restore(flags);
 		return 1;
