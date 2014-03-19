@@ -489,6 +489,9 @@ static enum hrtimer_restart cm3663_prox_timer_func(struct hrtimer *timer)
 	return HRTIMER_RESTART;
 }
 
+int proximity_val;
+EXPORT_SYMBOL(proximity_val);
+
 /* interrupt happened due to transition/change of near/far proximity state */
 irqreturn_t cm3663_irq_thread_fn(int irq, void *data)
 {
@@ -507,6 +510,7 @@ irqreturn_t cm3663_irq_thread_fn(int irq, void *data)
 	pr_err("%s: proximity value = %d, val = %d\n", __func__, tmp, val);
 
 	/* 0 is close, 1 is far */
+	proximity_val = val;
 	input_report_abs(ip->proximity_input_dev, ABS_DISTANCE, val);
 	input_sync(ip->proximity_input_dev);
 	wake_lock_timeout(&ip->prx_wake_lock, 3*HZ);
