@@ -826,7 +826,6 @@ static int m5mo_flash_power(int enable)
 		if (regulator_is_enabled(movie))
 			regulator_disable(movie);
 	}
-torch_exit:
 	regulator_put(flash);
 	regulator_put(movie);
 
@@ -4826,6 +4825,7 @@ static unsigned int sec_bat_get_lpcharging_state(void)
 	return val;
 }
 
+#if 0
 static void sec_bat_initial_check(void)
 {
 	pr_info("%s: connected_cable_type:%d\n",
@@ -4833,6 +4833,7 @@ static void sec_bat_initial_check(void)
 	if (connected_cable_type != CABLE_TYPE_NONE)
 		max8997_muic_charger_cb(connected_cable_type);
 }
+#endif
 
 static struct sec_bat_platform_data sec_bat_pdata = {
 	.fuel_gauge_name	= "fuelgauge",

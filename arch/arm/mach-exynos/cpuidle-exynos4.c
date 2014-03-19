@@ -343,7 +343,7 @@ static int check_usb_op(void)
 #endif
 }
 
-#if defined (CONFIG_MACH_U1_NA_SPR) || (CONFIG_MACH_U1_NA_USCC)
+#if defined (CONFIG_MACH_U1_NA_SPR)
 #include "../../../sound/soc/samsung/srp-types.h"
 #include "../../../sound/soc/samsung/idma.h"
 #endif
@@ -432,7 +432,7 @@ static int exynos4_check_operation(void)
 		return 1;
 #endif
 
-#if defined (CONFIG_MACH_U1_NA_SPR) || (CONFIG_MACH_U1_NA_USCC)
+#if defined (CONFIG_MACH_U1_NA_SPR)
 #ifdef CONFIG_SND_SAMSUNG_RP
 	if (!srp_get_status(IS_RUNNING))
 		return 1;
