@@ -1436,6 +1436,24 @@ int mali_vol_get_from_table(int vol)
 }
 #endif
 
+unsigned int get_mali_utilization_timeout(void) {
+
+	return mali_utilization_timeout;
+}
+EXPORT_SYMBOL(get_mali_utilization_timeout);
+
+void set_mali_utilization_timeout(unsigned int ms) {
+
+	if (mali_utilization_timeout < 25)
+		mali_utilization_timeout = 25;
+
+	if (mali_utilization_timeout > 5000)
+		mali_utilization_timeout = 5000;
+
+	mali_utilization_timeout = ms;
+}
+EXPORT_SYMBOL(set_mali_utilization_timeout);
+
 #ifdef CONFIG_MALI_DVFS
 static void update_time_in_state(int level)
 {
