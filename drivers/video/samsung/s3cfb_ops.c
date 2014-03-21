@@ -1146,7 +1146,6 @@ static int s3c_fb_align_word(unsigned int bpp, unsigned int pix)
 	return ALIGN(pix, pix_per_word);
 }
 
-#if defined(CONFIG_CPU_EXYNOS4212) || defined(CONFIG_CPU_EXYNOS4412)
 static u32 s3c_fb_red_length(int format)
 {
 	switch (format) {
@@ -1317,7 +1316,6 @@ static u32 s3c_fb_padding(int format)
 	}
 
 }
-#endif
 
 static inline u32 fb_visual(u32 bits_per_pixel, unsigned short palette_sz)
 {
@@ -1565,16 +1563,16 @@ void s3c_fb_update_regs(struct s3cfb_global *fbdev, struct s3c_reg_data *regs)
 #endif
 #endif
 }
-#if defined(CONFIG_CPU_EXYNOS4212) || defined(CONFIG_CPU_EXYNOS4412)
+
 static int s3c_fb_set_win_buffer(struct s3cfb_global *fbdev,
 		struct fb_info *fb, struct s3c_fb_win_config *win_config,
 		struct s3c_reg_data *regs)
 {
 	struct s3cfb_window *win = fb->par;
-	/* struct fb_fix_screeninfo prev_fix = fb->fix;
-	struct fb_var_screeninfo prev_var = fb->var; */
+	struct fb_fix_screeninfo prev_fix = fb->fix;
+	struct fb_var_screeninfo prev_var = fb->var;
 	unsigned short win_no = win->id;
-	/* int ret; */
+	int ret;
 	size_t window_size;
 	u32 alpha, size;
 
@@ -1744,7 +1742,6 @@ static int s3c_fb_set_win_config(struct s3cfb_global *fbdev,
 
 	return ret;
 }
-#endif
 
 int s3cfb_ioctl(struct fb_info *fb, unsigned int cmd, unsigned long arg)
 {

@@ -1113,7 +1113,6 @@ static int s5k5bafx_set_60hz_antibanding(struct v4l2_subdev *sd)
 }
 #endif
 
-#ifdef CONFIG_VIDEO_IMPROVE_STREAMOFF
 static int s5k5bafx_wait_steamoff(struct v4l2_subdev *sd)
 {
 	struct s5k5bafx_state *state = to_state(sd);
@@ -1141,7 +1140,6 @@ static int s5k5bafx_wait_steamoff(struct v4l2_subdev *sd)
 
 	return 0;
 }
-#endif
 
 static int s5k5bafx_control_stream(struct v4l2_subdev *sd, u32 cmd)
 {
