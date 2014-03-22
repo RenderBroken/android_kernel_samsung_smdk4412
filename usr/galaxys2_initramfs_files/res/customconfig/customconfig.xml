@@ -263,6 +263,7 @@ name="ZRAM Size" action="zram_size" unit="MB" min="0" reversed="false" step="32"
 </spinner>
 <checkbox description="If checked, BetterBatteryStatus will report discrete (non-overlapping) wakelock statistics." name="Discrete Wakelock Stats" action="generic01 /sys/module/wakelock/parameters/default_stats" label="Discrete Wakelock Stats"/>
 <button description="If you think that the fuel gauge chip is behaving weird use this button to reset it. Give it a few hours after you reset the gauge. It may still show you funny values for those period, then the battery percentage should be fine." name="Reset Fuel-Gauge Chip" action="reset-fuelgauge" label="Reset Fuel-Gauge Chip"/>
+<button description="This will restore stweaks settings to default. Restart the device after pressing the button." name="Reset Stweaks Settings" action="reset" label="Reset Settings"/>
 </settingsPane>
 </settingsTab>
 </settingsRoot>
