@@ -30,7 +30,7 @@ case "${profile}" in
     echo "70" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
     echo "2" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
     echo "15" > /sys/devices/system/cpu/cpufreq/neox/down_differential
-    echo "50" > /sys/devices/system/cpu/cpufreq/neox/freq_step
+    echo "100" > /sys/devices/system/cpu/cpufreq/neox/freq_step
   fi
   if [ "$GOVERNOR" == "ondemand" ];then
     echo "70" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
@@ -43,7 +43,7 @@ case "${profile}" in
     echo "65" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold_at_min_freq
     echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
     echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
-    echo "60" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+    echo "100" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
     echo "800000" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_for_responsiveness
     echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
     echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
@@ -54,7 +54,7 @@ case "${profile}" in
     echo "80" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
     echo "20" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
-    echo "5" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
+    echo "10" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
   fi
   if [ "$GOVERNOR" == "hyper" ];then
     echo "65" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
@@ -68,7 +68,7 @@ case "${profile}" in
     echo "82" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
     echo "5" > /sys/devices/system/cpu/cpufreq/neox/down_differential
-    echo "37" > /sys/devices/system/cpu/cpufreq/neox/freq_step
+    echo "55" > /sys/devices/system/cpu/cpufreq/neox/freq_step
   fi
   if [ "$GOVERNOR" == "ondemand" ];then
     echo "80" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
@@ -81,7 +81,7 @@ case "${profile}" in
     echo "45" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold_at_min_freq
     echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
     echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
-    echo "37" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+    echo "55" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
     echo "500000" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_for_responsiveness
     echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
     echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
@@ -92,7 +92,7 @@ case "${profile}" in
     echo "95" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
     echo "40" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
-    echo "10" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
+    echo "5" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
   fi
   if [ "$GOVERNOR" == "hyper" ];then
     echo "95" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
