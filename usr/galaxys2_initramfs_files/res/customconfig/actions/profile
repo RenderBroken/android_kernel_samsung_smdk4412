@@ -74,7 +74,7 @@ case "${profile}" in
     echo "80" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-    echo "80" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
+    echo "55" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
   fi
   if [ "$GOVERNOR" == "pegasusq" ];then
     echo "85" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
