@@ -142,17 +142,17 @@ static struct dbs_tuners {
 	unsigned int flex_duration;
 #endif
 } dbs_tuners_ins = {
-	.up_threshold_multi_core = DEF_FREQUENCY_UP_THRESHOLD,
+	.up_threshold_multi_core = 60,
 	.up_threshold = DEF_FREQUENCY_UP_THRESHOLD,
 	.sampling_down_factor = DEF_SAMPLING_DOWN_FACTOR,
 	.down_differential = DEF_FREQUENCY_DOWN_DIFFERENTIAL,
-	.down_differential_multi_core = MICRO_FREQUENCY_DOWN_DIFFERENTIAL,
+	.down_differential_multi_core = 3,
 	.up_threshold_any_cpu_load = DEF_FREQUENCY_UP_THRESHOLD,
 	.ignore_nice = 0,
 	.powersave_bias = 0,
 	.sync_freq = 800000,
 	.optimal_freq = 1000000,
-	.freq_step = 100,
+	.freq_step = 55,
 };
 
 static inline cputime64_t get_cpu_idle_time_jiffy(unsigned int cpu,
