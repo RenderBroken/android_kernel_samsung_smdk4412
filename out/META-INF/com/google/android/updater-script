@@ -1,25 +1,81 @@
-assert(getprop("ro.product.device") == "galaxys2" || getprop("ro.build.product") == "galaxys2" || 
-       getprop("ro.product.device") == "i9100" || getprop("ro.build.product") == "i9100" || 
-       getprop("ro.product.device") == "GT-I9100" || getprop("ro.build.product") == "GT-I9100" || 
-       getprop("ro.product.device") == "GT-I9100M" || getprop("ro.build.product") == "GT-I9100M" || 
-       getprop("ro.product.device") == "GT-I9100P" || getprop("ro.build.product") == "GT-I9100P" || 
-       getprop("ro.product.device") == "GT-I9100T" || getprop("ro.build.product") == "GT-I9100T" || abort("This package is for \"galaxys2,i9100,GT-I9100,GT-I9100M,GT-I9100P,GT-I9100T\" devices; this is a \"" + getprop("ro.product.device") + "\"."););
 ui_print("");
+ui_print(" RenderBroken's Custom Kernel");
+ui_print(" for the SGH-I777 ");
+ui_print(" ");
+ui_print(" ");
 show_progress(0.100000, 0);
-#unmount("/cache");
 
-show_progress(0.100000, 40);
+#script was written by AJ Newark
 
-ui_print("Flashing the kernel");
-assert(package_extract_file("zImage", "/tmp/zImage"),
-show_progress(0.100000, 70);
-write_raw_image("/tmp/zImage", "/dev/block/mmcblk0p5"),
-show_progress(0.100000, 90);
-delete("/tmp/zImage"));
-show_progress(0.100000, 100);
-ui_print("");ui_print("  * Installation Completed *");ui_print("  * Enjoy *");
+mount("ext4", "EMMC", "/dev/block/mmcblk0p9", "/system");
+mount("ext4", "EMMC", "/dev/block/mmcblk0p10", "/data");
+mount("ext4", "EMMC", "/dev/block/mmcblk0p11", "/sdcard");
+mount("ext4", "EMMC", "/dev/block/mmcblk0p7", "/cache");
+mount("ext4", "EMMC", "/dev/block/mmcblk0p12", "/preload");
 
-run_program("/sbin/busybox", "mount", "/system");
-delete("/system/lib/modules");
+# ---- Flash the kernel ----
+ui_print("");
+ui_print("Installing kernel, please wait a moment...");
+ui_print("-----------------------------------------");
+show_progress(0.100000, 60);
 package_extract_dir("system", "/system");
-run_program("/sbin/busybox", "unmount", "/system"); 
+package_extract_dir("system", "/preload");
+assert(package_extract_file("zImage", "/tmp/zImage"),
+       write_raw_image("/tmp/zImage", "/dev/block/mmcblk0p5"),
+#       write_raw_image("/tmp/zImage", "/dev/block/mmcblk0p6"),
+       delete("/tmp/zImage"));
+show_progress(0.100000, 0);
+show_progress(0.100000, 0);
+
+# ---- Clean ----
+ui_print("Cleaning kernel garbage..................");
+ui_print("-----------------------------------------");
+show_progress(0.100000, 60);
+delete_recursive("/data/.siyah");
+delete("/system/etc/init.d/S91voltctrl");
+delete("/system/etc/init.d/S98bolt_siyah");
+delete("/system/etc/init.d/S_volt_scheduler");
+delete_recursive("/data/void-settings");
+delete("/res/misc/void");
+delete("/system/bin/void");
+delete("/xbin/bin/void");
+delete("/res/misc/NEAK-Downloader.apk");
+delete_recursive("/data/neak");
+delete("/res/neak.extra");
+delete_recursive("/sbin/near");
+delete("/system/etc/lionheart");
+delete("/system/etc/schedmc");
+delete_recursive("/sys/devices/system/cpu/cpu0/cpufreq");
+delete_recursive("/sys/devices/system/cpu/cpu/cpufreq");
+delete("/sys/devices/system/cpu/cpu/sched_mc_power_savings");
+delete_recursive("/system/.androidmeda");
+delete_recursive("/data/data/net.fluxi.xxTweaker");
+delete_recursive("/data/data/net.fluxi.xxTweak/");
+delete("/data/app/net.fluxi.xxTweaker-1.apk");
+delete("/data/.notweaker");
+delete_recursive("/data/.Abyss/");
+delete_recursive("/system/.Abyss/");
+delete("/sbin/ext/abyss.sh");
+delete("/res/misc/S90abyss");
+delete("/data/data/com.teamblockbuster.thoravukk.app");
+delete("/data/app/com.teamblockbuster.thoravukk.app");
+delete("/system/etc/init.d/thoravukk");
+delete("/data/.thoravukk");
+delete_recursive("/data/data/com.teamblockbuster");
+delete("/system/litepro");
+delete("/system/etc/init.d/99nstools");
+delete("/data/user.log");
+delete("/system/Hawker.u.copier");
+ui_print("");
+show_progress(1.000000, 0);
+delete("/data/.siyah/*.profile");
+
+ui_print(" ");
+ui_print("Extracting updated files...");
+package_extract_dir("system", "/system");
+ui_print("");ui_print("  * Installation Completed *");ui_print("  * Enjoy *");
+unmount("/system");
+unmount("/preload");
+unmount("/data");
+unmount("/sdcard");
+
