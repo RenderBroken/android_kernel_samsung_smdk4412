@@ -31,6 +31,7 @@ negative=0
 min_bl=80
 min_gamma=0
 max_gamma=20
+tsp_slide2wake=off
 user_gamma_adjust=0
 sound_volume1=0
 sound_volume2=0
