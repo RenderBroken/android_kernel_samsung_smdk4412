@@ -19,45 +19,45 @@ nod /dev/block/mmcblk1p1 600 0 0 b 179 17
 slink /init /stage1/init 777 0 0
 dir /proc 755 0 0
 dir /stage1 755 0 0
-file /stage1/busybox /home/gustavo/kernel/usr/galaxys2_initramfs_files/busybox 755 0 0
-file /stage1/init /home/gustavo/kernel/usr/galaxys2_initramfs_files/init 755 0 0
+file /stage1/busybox /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/busybox 755 0 0
+file /stage1/init /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/init 755 0 0
 dir /res 755 0 0
-file /res/systemcat /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/systemcat 755 0 0
-file /res/systemstatus /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/systemstatus 755 0 0
-file /res/uci.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/uci.sh 755 01000 01003
-file /res/update.url /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/update.url 755 01000 01003
-file /res/lights.exynos4.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/lights.exynos4.so 755 0 0
+file /res/systemcat /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/systemcat 755 0 0
+file /res/systemstatus /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/systemstatus 755 0 0
+file /res/uci.sh /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/uci.sh 755 01000 01003
+file /res/update.url /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/update.url 755 01000 01003
+file /res/lights.exynos4.so /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/lights.exynos4.so 755 0 0
 dir /res/customconfig 755 0 0
-file /res/customconfig/customconfig.xml /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig.xml 755 0 0
-file /res/customconfig/customconfig-helper /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig-helper 755 0 0
-file /res/customconfig/default.profile /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/default.profile 755 0 0
+file /res/customconfig/customconfig.xml /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/customconfig.xml 755 0 0
+file /res/customconfig/customconfig-helper /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/customconfig-helper 755 0 0
+file /res/customconfig/default.profile /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/default.profile 755 0 0
 dir /res/customconfig/actions 755 0 0
-file /res/customconfig/actions/gps /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gps 755 0 0
-file /res/customconfig/actions/bln_effect /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/bln_effect 755 0 0
-file /res/customconfig/actions/chargecurrent /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/chargecurrent 755 0 0
-file /res/customconfig/actions/cpu-voltage /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/cpu-voltage 755 0 0
-file /res/customconfig/actions/generic /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/generic 755 0 0
-file /res/customconfig/actions/generic01 /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/generic01 755 0 0
-file /res/customconfig/actions/navigationbar /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/navigationbar 755 0 0
-file /res/customconfig/actions/reset-fuelgauge /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/reset-fuelgauge 755 0 0
-file /res/customconfig/actions/schedfeat /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/schedfeat 755 0 0
-file /res/customconfig/actions/sound_volume /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/sound_volume 755 0 0
-file /res/customconfig/actions/test-bln /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/test-bln 755 0 0
-file /res/customconfig/actions/usb-mode /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/usb-mode 755 0 0
-file /res/customconfig/actions/gpu-freq  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-freq 755 0 0
-file /res/customconfig/actions/gpu-voltage  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-voltage 755 0 0
-file /res/customconfig/actions/gpu-thresh  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-thresh 755 0 0
-file /res/customconfig/actions/zram_size  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/zram_size 755 0 0
-file /res/customconfig/actions/swap  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/swap 755 0 0
-file /res/customconfig/actions/negative  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/negative 755 0 0
+file /res/customconfig/actions/gps /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/gps 755 0 0
+file /res/customconfig/actions/bln_effect /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/bln_effect 755 0 0
+file /res/customconfig/actions/chargecurrent /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/chargecurrent 755 0 0
+file /res/customconfig/actions/cpu-voltage /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/cpu-voltage 755 0 0
+file /res/customconfig/actions/generic /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/generic 755 0 0
+file /res/customconfig/actions/generic01 /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/generic01 755 0 0
+file /res/customconfig/actions/navigationbar /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/navigationbar 755 0 0
+file /res/customconfig/actions/reset-fuelgauge /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/reset-fuelgauge 755 0 0
+file /res/customconfig/actions/schedfeat /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/schedfeat 755 0 0
+file /res/customconfig/actions/sound_volume /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/sound_volume 755 0 0
+file /res/customconfig/actions/test-bln /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/test-bln 755 0 0
+file /res/customconfig/actions/usb-mode /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/usb-mode 755 0 0
+file /res/customconfig/actions/gpu-freq  /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-freq 755 0 0
+file /res/customconfig/actions/gpu-voltage  /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-voltage 755 0 0
+file /res/customconfig/actions/gpu-thresh  /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/gpu-thresh 755 0 0
+file /res/customconfig/actions/zram_size  /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/zram_size 755 0 0
+file /res/customconfig/actions/swap  /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/swap 755 0 0
+file /res/customconfig/actions/negative  /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/res/customconfig/actions/negative 755 0 0
 dir /sbin 755 0 0
 dir /sbin/ext 755 0 0
-file /sbin/ext/efs-backup.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/efs-backup.sh 755 0 0
-file /sbin/ext/post-init.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/post-init.sh 755 0 0
-file /sbin/ext/modules_recovery.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/modules_recovery.sh 755 0 0
-file /sbin/ext/run-init-scripts.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/sbin/ext/run-init-scripts.sh 755 0 0
+file /sbin/ext/efs-backup.sh /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/sbin/ext/efs-backup.sh 755 0 0
+file /sbin/ext/post-init.sh /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/sbin/ext/post-init.sh 755 0 0
+file /sbin/ext/modules_recovery.sh /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/sbin/ext/modules_recovery.sh 755 0 0
+file /sbin/ext/run-init-scripts.sh /media/storage/android/source/smdk4412/usr/galaxys2_initramfs_files/sbin/ext/run-init-scripts.sh 755 0 0
 dir /sys 755 0 0
 dir /mnt 755 0 0
 dir /mnt/.lfs 755 0 0
-file /stage1/boot.cpio /home/gustavo/kernel/usr/initramfs/ramdisk.cpio 644 0 0
-file /stage1/recovery.cpio /home/gustavo/kernel/usr/initramfs/recovery-CWM.cpio 644 0 0
+file /stage1/boot.cpio /media/storage/android/source/smdk4412/usr/initramfs/ramdisk-i777.cpio 644 0 0
+file /stage1/recovery.cpio /media/storage/android/source/smdk4412/usr/initramfs/recovery-CWM-i777.cpio 644 0 0
