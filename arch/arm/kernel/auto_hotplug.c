@@ -94,7 +94,7 @@ struct delayed_work hotplug_decision_work;
 struct delayed_work hotplug_unpause_work;
 struct work_struct hotplug_online_all_work;
 struct work_struct hotplug_online_single_work;
-extern struct delayed_work hotplug_offline_work;
+struct delayed_work aphotplug_offline_work;
 struct work_struct hotplug_offline_all_work;
 struct work_struct hotplug_boost_online_work;
 
@@ -381,8 +381,8 @@ static void hotplug_decision_work_fn(struct work_struct *work)
 			 * hotplug events will occur.
 			 */
 			flags |= HOTPLUG_PAUSED;
-			if (delayed_work_pending(&hotplug_offline_work))
-				cancel_delayed_work(&hotplug_offline_work);
+			if (delayed_work_pending(&aphotplug_offline_work))
+				cancel_delayed_work(&aphotplug_offline_work);
 			schedule_work(&hotplug_online_all_work);
 			return;
 		} else if (flags & HOTPLUG_PAUSED) {
@@ -391,16 +391,16 @@ static void hotplug_decision_work_fn(struct work_struct *work)
 		} else if ((avg_running >= enable_load) && (online_cpus < available_cpus) && (max_online_cpus > online_cpus)) {
 			if (debug)
 				pr_info("auto_hotplug: Onlining single CPU, avg running: %d\n", avg_running);
-			if (delayed_work_pending(&hotplug_offline_work))
-				cancel_delayed_work(&hotplug_offline_work);
+			if (delayed_work_pending(&aphotplug_offline_work))
+				cancel_delayed_work(&aphotplug_offline_work);
 			schedule_work(&hotplug_online_single_work);
 			return;
 		} else if ((avg_running <= disable_load) && (min_online_cpus < online_cpus)) {
 			/* Only queue a cpu_down() if there isn't one already pending */
-			if (!(delayed_work_pending(&hotplug_offline_work))) {
+			if (!(delayed_work_pending(&aphotplug_offline_work))) {
 				if (debug)
 					pr_info("auto_hotplug: Offlining CPU, avg running: %d\n", avg_running);
-				schedule_delayed_work_on(0, &hotplug_offline_work, HZ);
+				schedule_delayed_work_on(0, &aphotplug_offline_work, HZ);
 			}
 			/* If boostpulse is active, clear the flags */
 			if (flags & BOOSTPULSE_ACTIVE) {
@@ -501,7 +501,7 @@ void hotplug_disable(bool flag)
 		flags |= HOTPLUG_DISABLED;
 		if (debug)
 			pr_info("auto_hotplug: Setting disable flag\n");
-		cancel_delayed_work_sync(&hotplug_offline_work);
+		cancel_delayed_work_sync(&aphotplug_offline_work);
 		cancel_delayed_work_sync(&hotplug_decision_work);
 		cancel_delayed_work_sync(&hotplug_unpause_work);
 	}
@@ -525,17 +525,17 @@ void hotplug_boostpulse(void)
 		 * whilst the user is interacting with the device.
 		 */
 		if (likely(online_cpus < 2)) {
-			cancel_delayed_work_sync(&hotplug_offline_work);
+			cancel_delayed_work_sync(&aphotplug_offline_work);
 			flags |= HOTPLUG_PAUSED;
 			schedule_work(&hotplug_online_single_work);
 			schedule_delayed_work(&hotplug_unpause_work, HZ);
 		} else {
 			if (debug)
 				pr_info("auto_hotplug: %s: %d CPUs online\n", __func__, num_online_cpus());
-			if (delayed_work_pending(&hotplug_offline_work)) {
+			if (delayed_work_pending(&aphotplug_offline_work)) {
 				if (debug)
-					pr_info("auto_hotplug: %s: Canceling hotplug_offline_work\n", __func__);
-				cancel_delayed_work(&hotplug_offline_work);
+					pr_info("auto_hotplug: %s: Canceling aphotplug_offline_work\n", __func__);
+				cancel_delayed_work(&aphotplug_offline_work);
 				flags |= HOTPLUG_PAUSED;
 				schedule_delayed_work(&hotplug_unpause_work, HZ * 2);
 				schedule_delayed_work_on(0, &hotplug_decision_work, min_sampling_rate);
@@ -553,7 +553,7 @@ static void auto_hotplug_early_suspend(struct early_suspend *handler)
 	flags |= EARLYSUSPEND_ACTIVE;
 
 	/* Cancel all scheduled delayed work to avoid races */
-	cancel_delayed_work_sync(&hotplug_offline_work);
+	cancel_delayed_work_sync(&aphotplug_offline_work);
 	cancel_delayed_work_sync(&hotplug_decision_work);
 	if (num_online_cpus() > 1) {
 		pr_info("auto_hotplug: Offlining CPUs for early suspend\n");
@@ -602,7 +602,7 @@ int __init auto_hotplug_init(void)
 	INIT_WORK(&hotplug_online_all_work, hotplug_online_all_work_fn);
 	INIT_WORK(&hotplug_online_single_work, hotplug_online_single_work_fn);
 	INIT_WORK(&hotplug_offline_all_work, hotplug_offline_all_work_fn);
-	INIT_DELAYED_WORK_DEFERRABLE(&hotplug_offline_work, hotplug_offline_work_fn);
+	INIT_DELAYED_WORK_DEFERRABLE(&aphotplug_offline_work, hotplug_offline_work_fn);
 
 	/*
 	 * Give the system time to boot before fiddling with hotplugging.
