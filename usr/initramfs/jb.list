@@ -27,6 +27,8 @@ file /res/systemstatus /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/sys
 file /res/uci.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/uci.sh 755 01000 01003
 file /res/update.url /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/update.url 755 01000 01003
 file /res/lights.exynos4.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/lights.exynos4.so 755 0 0
+file /res/libsqlite.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/libsqlite.so 755 0 0
+file /res/sqlite3 /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/sqlite3 755 0 0
 dir /res/customconfig 755 0 0
 file /res/customconfig/customconfig.xml /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig.xml 755 0 0
 file /res/customconfig/customconfig-helper /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig-helper 755 0 0

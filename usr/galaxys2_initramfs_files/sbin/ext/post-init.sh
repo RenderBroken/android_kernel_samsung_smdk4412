@@ -91,6 +91,13 @@ rm /system/lib/hw/lights.exynos4.so
 cp /res/lights.exynos4.so /system/lib/hw/lights.exynos4.so
 chown root.root /system/lib/hw/lights.exynos4.so
 chmod 0664 /system/lib/hw/lights.exynos4.so
+
+# install modded sqlite
+cp -a /res/libsqlite.so /system/lib/libsqlite.so
+cp -a /res/sqlite3 /system/xbin/sqlite3
+chmod 0644 /system/lib/libsqlite.so
+chmod 0755 /system/xbin/sqlite3
+
 mount -o remount,ro /system
 
 # google dns
