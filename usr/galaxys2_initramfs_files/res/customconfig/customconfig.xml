@@ -105,7 +105,7 @@ name="CPU Voltage 200 MHz" action="cpu-voltage 6" unit="mV" min="850" reversed="
 <spinnerItem name="54MHz (vpll)" value="54"/> 
 </spinner>
 </settingsPane>
-<settingsPane description="GPU Voltage Levels: The defaults are 850, 850, 900 and 950. WARNING: Too low voltages can cause freezes, and freezes can cause data corruption! Undervolting limits can vary from device to device." name="GPU Voltage Levels">
+<settingsPane description="GPU Voltage Levels: The defaults are 900, 900, 950 and 1000. WARNING: Too low voltages can cause freezes, and freezes can cause data corruption! Undervolting limits can vary from device to device." name="GPU Voltage Levels">
 <seekBar description="GPU Voltage for the first step"
 name="GPU Voltage Level1" action="gpu-voltage 1" unit="mV" min="800" reversed="false" step="50" max="1400"/>
 <seekBar description="GPU Voltage for the second step"
