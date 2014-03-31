@@ -3,7 +3,7 @@ cat << CTAG
     name:MEMORY,
     elements:[
     { STitleBar:{
-		title:"Memory Settings"
+		title:"Memory Settings",
 		description:"These settings will give you 'more memory' at the cost increased CPU load."
 	}},
 	{ SSeekBar:{

@@ -3,7 +3,7 @@ cat << CTAG
     name:SCREEN,
     elements:[
     { STitleBar:{
-		title:"MDNIE Control"
+		title:"MDNIE Control",
 		description:"Negative mode can be enabled by pressing home button 4 times."
 	}},
 	{ SSeekBar:{
