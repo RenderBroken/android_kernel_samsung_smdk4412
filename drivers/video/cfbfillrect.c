@@ -302,14 +302,26 @@ fast_fill16(struct fb_info *p, unsigned long __iomem *dst, int dst_idx,
 		dstp = dst;
 #if BITS_PER_LONG == 32
 		if (dst_idx) {
+#ifdef __LITTLE_ENDIAN
 			fb_writew(pat, (u16 *)dstp + 1);
+#else
+			// Write leading pixel to the first halfword in the 32-bit word,
+			// corresponding to pixel 2 an 3 in the word.
+			fb_writew(pat, (u16 *)dstp);
+#endif
 			dstp++;
 			n -= 16;
 			if (n == 0)
 				continue;
 		}
 		else if (n == 16) {
+#ifdef __LITTLE_ENDIAN
 			fb_writew(pat, (u16 *)dstp);
+#else
+			// Write the only pixel to the second halfword in the 32-bit word,
+			// corresponding to pixels 0 and 1 in the word.
+			fb_writew(pat, (u16 *)dstp + 1);
+#endif
 			continue;
 		}	
 #else /* BITS_PER_LONG == 64 */
@@ -354,7 +366,13 @@ fast_fill16(struct fb_info *p, unsigned long __iomem *dst, int dst_idx,
 		last_bits = (dst_idx + width_in_bits) % BITS_PER_LONG;
 #if BITS_PER_LONG == 32
 		if (last_bits)
+#ifdef __LITTLE_ENDIAN
 			fb_writew(pat, dstp);
+#else
+			// Write the last pixel to the second halfword in the 32-bit word,
+			// corresponding to pixels 0 and 1 in the word.
+			fb_writew(pat, (u16 *)dstp + 1);
+#endif
 #else /* BITS_PER_LONG == 64 */
 		if (last_bits & 32) {
 			fb_writel(pat, dstp);
@@ -454,6 +472,21 @@ void cfb_fillrect(struct fb_info *p, const struct fb_fillrect *rect)
 		}
 	}
 #endif
+#if !defined(CONFIG_FB_CFB_REV_PIXELS_IN_BYTE) && !defined(__LITTLE_ENDIAN) \
+&& BITS_PER_LONG == 32
+	// Experimental support for big-endian 32-bit systems.
+	if (rect->rop == ROP_COPY) {
+		if (bpp == 16) {
+			fast_fill16(p, dst, dst_idx, pat, width * 16, height);
+			return;
+		}
+		else if (bpp == 32) {
+			fast_fill32(p, dst, dst_idx, pat, width * 32, height);
+			return;
+		}
+	}
+#endif
+
 	left = bits % bpp;
 	if (!left) {
 		u32 bswapmask = fb_compute_bswapmask(p);
