@@ -1,5 +1,7 @@
 profile() {
 GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+if [ -d "/sys/devices/system/cpu/cpufreq/$GOVERNOR/" ]; then
+chmod 0664 /sys/devices/system/cpu/cpufreq/$GOVERNOR/*
 	if [[ ! -z $2 ]]; then
 		case $2 in
 Performance)
@@ -18,7 +20,6 @@ Performance)
     echo "25" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
   fi
   if [ "$GOVERNOR" == "NeoX" ];then
-    chmod 0644 /sys/devices/system/cpu/cpufreq/neox/*
     echo "60" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
     echo "2" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
     echo "15" > /sys/devices/system/cpu/cpufreq/neox/down_differential
@@ -45,37 +46,36 @@ Performance)
 
 Balanced)
   if [ "$GOVERNOR" == "conservative" ];then
-    echo "80" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
+    echo "90" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
     echo "20" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
     echo "10" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
   fi
   if [ "$GOVERNOR" == "hyper" ];then
-    echo "80" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
+    echo "90" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
   fi
   if [ "$GOVERNOR" == "intellidemand" ];then
-    echo "80" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
+    echo "90" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/intellidemand/sampling_down_factor
     echo "20" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
   fi
   if [ "$GOVERNOR" == "NeoX" ];then
-    chmod 0644 /sys/devices/system/cpu/cpufreq/neox/*
-    echo "80" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
+    echo "90" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
     echo "5" > /sys/devices/system/cpu/cpufreq/neox/down_differential
-    echo "55" > /sys/devices/system/cpu/cpufreq/neox/freq_step
+    echo "70" > /sys/devices/system/cpu/cpufreq/neox/freq_step
   fi
   if [ "$GOVERNOR" == "ondemand" ];then
-    echo "80" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+    echo "90" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
     echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-    echo "55" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
+    echo "70" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
   fi
   if [ "$GOVERNOR" == "pegasusq" ];then
-    echo "80" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
+    echo "90" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
     echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
     echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
-    echo "55" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+    echo "70" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
     echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
     echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
   fi
@@ -100,11 +100,9 @@ Battery)
     echo "5" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
   fi
   if [ "$GOVERNOR" == "NeoX" ];then
-    chmod 0644 /sys/devices/system/cpu/cpufreq/neox/*
     echo "95" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
     echo "1" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
     echo "5" > /sys/devices/system/cpu/cpufreq/neox/down_differential
-    echo "10" > /sys/devices/system/cpu/cpufreq/neox/freq_step
   fi
   if [ "$GOVERNOR" == "ondemand" ];then
     echo "95" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
@@ -143,10 +141,11 @@ Battery)
 	if [ "$GOVERNOR" != "zzmoove" ];then
 	if grep -q 60 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
 		echo Performance
-	elif grep -q 80 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
+	elif grep -q 90 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
 		echo Balanced
 	elif grep -q 95 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
 		echo Battery
+	fi
 	fi
 	fi
 }
