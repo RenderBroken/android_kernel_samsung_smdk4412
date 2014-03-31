@@ -82,7 +82,7 @@ mali_dvfs_status_t maliDvfsStatus;
 int mali_dvfs_control;
 
 int step0_clk = 108;
-int step0_vol = 850000;
+int step0_vol = 900000;
 int step1_clk = 160;
 int step1_vol = 900000;
 int step0_up = 90;
@@ -92,7 +92,7 @@ int step2_vol = 950000;
 int step1_up = 90;
 int step2_down = 75;
 int step3_clk = 267;
-int step3_vol = 950000;
+int step3_vol = 1000000;
 int step2_up = 90;
 int step3_down = 70;
 

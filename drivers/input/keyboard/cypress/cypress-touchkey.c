@@ -110,7 +110,7 @@ static int breathing_step_idx = 0;
 static unsigned int touchkey_voltage = 3000;
 static unsigned int touchkey_voltage_saved = 3000;
 static bool dyn_brightness = false;
-static bool blnww = false;
+static bool blnww = true;
 
 static int led_fadein = 0, led_fadeout = 0;
 static int led_on_touch = 1;

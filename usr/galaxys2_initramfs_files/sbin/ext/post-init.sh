@@ -7,70 +7,39 @@
 
 #!/sbin/busybox sh
 
-mkdir /data/.siyah
-chmod 0777 /data/.siyah
+# set up Synapse support
+/sbin/uci;
 
-. /res/customconfig/customconfig-helper
-
-ccxmlsum=`md5sum /res/customconfig/customconfig.xml | awk '{print $1}'`
-if [ "a${ccxmlsum}" != "a`cat /data/.siyah/.ccxmlsum`" ];
-then
-  rm -f /data/.siyah/*.profile
-  echo ${ccxmlsum} > /data/.siyah/.ccxmlsum
+# apply some of synapse defaults at boot
+echo "0" > /sys/devices/virtual/sec/sec_touchscreen/tsp_slide2wake
+echo "1" > /sys/module/alarm/parameters/debug_mask
+echo "1200000" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+chmod 0664 /system/etc/gps.conf
+if [ -f /data/gps.conf ]
+	    then
+	    mount -o remount,rw /system
+	    mount -o remount,rw /data
+	    chown system system /system/etc/gps.conf
+        chmod 0660 /system/etc/gps.conf
+	    cp /data/gps.conf /system/etc/gps.conf
+	    chown system system /system/etc/gps.conf
+        chmod 0660 /system/etc/gps.conf
+        mount -o remount,ro /system	    
 fi
-[ ! -f /data/.siyah/default.profile ] && cp /res/customconfig/default.profile /data/.siyah
-
-read_defaults
-read_config
-
-# disable debugging on some modules
-if [ "$logger" == "off" ];then
-  rm -rf /dev/log
-  echo 0 > /sys/module/ump/parameters/ump_debug_level
-  echo 0 > /sys/module/mali/parameters/mali_debug_level
-  echo 0 > /sys/module/kernel/parameters/initcall_debug
-  echo 0 > /sys//module/lowmemorykiller/parameters/debug_level
-  echo 0 > /sys/module/earlysuspend/parameters/debug_mask
-  echo 0 > /sys/module/alarm/parameters/debug_mask
-  echo 0 > /sys/module/alarm_dev/parameters/debug_mask
-  echo 0 > /sys/module/binder/parameters/debug_mask
-  echo 0 > /sys/module/xt_qtaguid/parameters/debug_mask
-fi
-
-#apply last soundgasm level on boot
-/res/uci.sh soundgasm_hp $soundgasm_hp
-
-# apply STweaks defaults
-/res/uci.sh apply
-
-#usb mode
-/res/customconfig/actions/usb-mode ${usb_mode}
 
 # install kernel modules
 mount -o remount,rw /system
 rm /system/lib/modules/*.ko
-# install wifi module
 cp /modules/dhd.ko /system/lib/modules/
-# install fm radio module
 cp /modules/Si4709_driver.ko /system/lib/modules/
-# check if optional modules should be installed
-if [ "$cifs" == "on" ];then
 cp /modules/auth_rpcgss.ko /system/lib/modules/
 cp /modules/cifs.ko /system/lib/modules/
 cp /modules/lockd.ko /system/lib/modules/
 cp /modules/nfs.ko /system/lib/modules/
 cp /modules/rpcsec_gss_krb5.ko /system/lib/modules/
 cp /modules/sunrpc.ko /system/lib/modules/
-fi
-if [ "$scsi" == "on" ];then
 cp /modules/scsi_wait_scan.ko /system/lib/modules/
-fi
-
 chmod 0644 /system/lib/modules/*.ko
-
-### Disables Built In Error Reporting
-setprop profiler.force_disable_err_rpt 1
-setprop profiler.force_disable_ulog 1
 
 # system status
 cp /res/systemstatus /system/bin/systemstatus
@@ -80,11 +49,6 @@ chmod 0755 /system/bin/systemstatus
 cp /res/systemcat /system/bin/systemcat
 chown root.system /system/bin/systemcat
 chmod 0755 /system/bin/systemcat
-
-# check if vpll is enabled
-if [ "$vpll" == "on" ];then
-echo "1" > /sys/module/mali/parameters/mali_use_vpll
-fi
 
 # install lights lib needed by BLN
 rm /system/lib/hw/lights.exynos4.so

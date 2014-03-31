@@ -1,8 +1,0 @@
-#!/system/bin/sh
-
-rm /data/.siyah/.active.profile
-rm /data/.siyah/.ccxmlsum
-rm /data/.siyah/default.profile
-rm /data/.siyah/.profile
-
-echo Restart your device!
