@@ -1,0 +1,47 @@
+cat << CTAG
+{
+    name:TWEAKS,
+    elements:[
+    { STitleBar:{
+		title:"Charge Control"
+	}},
+	{ SOptionList:{
+		title:"Charge Current Control",
+		default:1,
+        action:"option charge",
+        values:{
+1:"AC:650mA, Misc,USB:450mA (Stock)",
+2:"AC,Misc:650mA, USB:450mA",
+3:"All:650mA (risky for USB ports)",
+                }
+        }},
+{ SPane:{
+		title:"Vibration Control",
+	}},
+
+{ SSeekBar:{
+   description:"If your rom has vibration control in settings, use it instead of synapse settings.",
+   min:0,
+   max:100,
+   unit:"%",
+   default:50,
+   action:"generic /sys/class/timed_output/vibrator/pwm_value"
+}},
+
+ { SPane:{
+		title:"GPS",
+	}},
+ { SGeneric:{
+   title:"GPS Configuration",
+   description:"Here you can change your location to improve GPS. Info about location codes can be found <a href='http://www.pool.ntp.org/en/'>here</a>",
+   default:north-america,
+   action:"option gps",
+}},
+{ SLiveLabel:{
+		refresh:1000,
+		action:"live gps"
+	}},
+	]
+}
+
+CTAG

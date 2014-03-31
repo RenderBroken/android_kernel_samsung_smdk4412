@@ -1,0 +1,61 @@
+cat << CTAG
+{
+    name:SCREEN,
+    elements:[
+    { STitleBar:{
+		title:"MDNIE Control"
+		description:"Negative mode can be enabled by pressing home button 4 times."
+	}},
+	{ SSeekBar:{
+	title:"Scenario",
+		default:0,
+		action:"generic /sys/class/mdnie/mdnie/scenario",
+		values:{
+0:"Default",
+1:"UI",
+2:"Video",
+3:"Warm Video",
+4:"Cold Video",
+5:"Camera",
+6:"Browsing",
+7:"Gallery",
+8:"VT",
+		}
+	}},
+
+{ SSeekBar:{
+	title:"Mode",
+		default:0,
+		action:"generic /sys/class/mdnie/mdnie/mode",
+		values:{
+0:"Default",
+1:"Dynamic",
+2:"Natural",
+3:"Movie",
+		}
+	}},
+{ SPane:{
+		title:"Other Settings",
+		description:"Misc Screen Settings",
+	}},
+	{ SCheckBox:{
+		description:"Enabling slide2wake may decrease your battery life.",
+                label:"Slide2Wake",
+                default:0,
+                action:"generic /sys/devices/virtual/sec/sec_touchscreen/tsp_slide2wake",
+        }},
+
+	{ SSeekBar:{
+                  title:"User adjustable gamma shift.",
+                  step:5,
+                  min:-50,
+                  max:50,
+                  default:0,
+                  action:"generic /sys/class/lcd/panel/user_gamma_adjust",
+               }
+            },
+
+	 ]
+}
+
+CTAG

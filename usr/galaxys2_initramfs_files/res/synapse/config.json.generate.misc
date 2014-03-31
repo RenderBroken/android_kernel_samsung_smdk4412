@@ -1,0 +1,29 @@
+cat << CTAG
+{
+    name:MISC,
+    elements:[
+	{ STitleBar:{
+		title:"MISC Settings"
+	}},
+	{ SOptionList:{
+		title:"Logs",
+		default:On,
+                action:"option logs",
+                values:[
+			Off,
+			On,
+                ]
+        }},
+       { SPane:{
+		title:"Fuel-Gauge",
+		description:"If you think that the fuel gauge chip is behaving weird use this button to reset it. Give it a few hours after you reset the gauge. It may still show you funny values for those period, then the battery percentage should be fine."
+	}},
+        { SButton:{
+   label:"Reset Fuel-Gauge Chip",
+   action:"reset-fuelgauge"
+}},
+
+ ]
+}
+
+CTAG
