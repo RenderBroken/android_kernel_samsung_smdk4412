@@ -28,20 +28,6 @@ if [ -f /data/gps.conf ]
         chmod 0660 /system/etc/gps.conf
         mount -o remount,ro /system	    
 fi
-
-# install kernel modules
-mount -o remount,rw /system
-rm /system/lib/modules/*.ko
-cp /modules/dhd.ko /system/lib/modules/
-cp /modules/Si4709_driver.ko /system/lib/modules/
-cp /modules/auth_rpcgss.ko /system/lib/modules/
-cp /modules/cifs.ko /system/lib/modules/
-cp /modules/lockd.ko /system/lib/modules/
-cp /modules/nfs.ko /system/lib/modules/
-cp /modules/rpcsec_gss_krb5.ko /system/lib/modules/
-cp /modules/sunrpc.ko /system/lib/modules/
-cp /modules/scsi_wait_scan.ko /system/lib/modules/
-chmod 0644 /system/lib/modules/*.ko
 else
 # set up stweaks support
 mkdir /data/.siyah
@@ -54,6 +40,7 @@ if [ "a${ccxmlsum}" != "a`cat /data/.siyah/.ccxmlsum`" ];
 then
   rm -f /data/.siyah/*.profile
   echo ${ccxmlsum} > /data/.siyah/.ccxmlsum
+fi
 [ ! -f /data/.siyah/default.profile ] && cp /res/customconfig/default.profile /data/.siyah
 
 read_defaults
@@ -87,28 +74,21 @@ if [ "$vpll" == "on" ];then
 echo "1" > /sys/module/mali/parameters/mali_use_vpll
 fi
 
-# install kernel modules
-  mount -o remount,rw /system
-  rm /system/lib/modules/*.ko
-# install wifi module
-  cp /modules/dhd.ko /system/lib/modules/
-# install fm radio module
-  cp /modules/Si4709_driver.ko /system/lib/modules/
-# check if optional modules should be installed
-if [ "$cifs" == "on" ];then
-  cp /modules/auth_rpcgss.ko /system/lib/modules/
-  cp /modules/cifs.ko /system/lib/modules/
-  cp /modules/lockd.ko /system/lib/modules/
-  cp /modules/nfs.ko /system/lib/modules/
-  cp /modules/rpcsec_gss_krb5.ko /system/lib/modules/
-  cp /modules/sunrpc.ko /system/lib/modules/
-fi
-if [ "$scsi" == "on" ];then
-  cp /modules/scsi_wait_scan.ko /system/lib/modules/
 fi
 
-fi
-fi
+# install kernel modules
+mount -o remount,rw /system
+rm /system/lib/modules/*.ko
+cp /modules/dhd.ko /system/lib/modules/
+cp /modules/Si4709_driver.ko /system/lib/modules/
+cp /modules/auth_rpcgss.ko /system/lib/modules/
+cp /modules/cifs.ko /system/lib/modules/
+cp /modules/lockd.ko /system/lib/modules/
+cp /modules/nfs.ko /system/lib/modules/
+cp /modules/rpcsec_gss_krb5.ko /system/lib/modules/
+cp /modules/sunrpc.ko /system/lib/modules/
+cp /modules/scsi_wait_scan.ko /system/lib/modules/
+chmod 0644 /system/lib/modules/*.ko
 
 # system status
 cp /res/systemstatus /system/bin/systemstatus

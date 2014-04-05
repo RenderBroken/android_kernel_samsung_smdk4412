@@ -140,6 +140,7 @@ name="GPU Threshold 4-DOWN" action="gpu-thresh 4DOWN" unit="%" min="0" reversed=
 name="Scenario" action="generic /sys/class/mdnie/mdnie/scenario" unit="" min="0" reversed="false" step="1" max="8"/>
 <seekBar description="By increasing this you will get warmer colors (good for night). Has no effect when Scenario is set to 0."
 name="Mode" action="generic /sys/class/mdnie/mdnie/mode" unit="" min="0" reversed="false" step="1" max="3"/>
+</settingsPane>
 <settingsPane description="Other Settings" name="Other Settings">
 <checkbox description="Enable slide2wake feature. Enabling this feature may decrease your battery life." name="Slide2Wake" action="generic01 /sys/devices/virtual/sec/sec_touchscreen/tsp_slide2wake" label="Slide2Wake"/>
 <seekBar description="User adjustable gamma shift."
@@ -239,12 +240,6 @@ name="ZRAM Size" action="zram_size" unit="MB" min="0" reversed="false" step="32"
 <spinnerItem name="South America" value="6"/>
 </spinner>
 <checkbox description="Enable or Disable Navigation Bar (needs restart)" name="Navigation Bar" action="navigationbar" label="Navigation Bar"/>
-</settingsPane>
-</settingsTab>
-<settingsTab name="Modules">
-<settingsPane description="Here you can choose optional kernel modules. If you don't know what they mean then there is no point in enabling them. Needs restart." name="Optional Modules">
-<checkbox description="This enables SMB/CIFS/NFS Network Modules. These modules are responsible for managing your network shares. It is used to mount/unmount network file resources on to your device." name="SMB/CIFS/NFS Network Modules" action="generic /tmp/cifs" label="SMB/CIFS/NFS Network Modules"/>
-<checkbox description="SCSI Scan Wait is responsible to wait until all the asynchronous scans are complete. It will wait after all root SCSI drivers have finished scanning their busses. Note that use of this module can increase your bootup time." name="Small Computer System Interface Wait Scan" action="generic /tmp/scsi" label="SCSI Wait Scan"/>
 </settingsPane>
 </settingsTab>
 <settingsTab name="Misc">

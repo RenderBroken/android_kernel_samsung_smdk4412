@@ -254,6 +254,37 @@ charger() {
 	echo 3
 	fi
 	}
+	
+hotplug_control() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  1)
+    echo "on" > /sys/devices/virtual/misc/second_core/hotplug_on
+    ;;
+  2)
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "off" > /sys/devices/virtual/misc/second_core/second_core_on
+    ;;
+  3)
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "on" > /sys/devices/virtual/misc/second_core/second_core_on
+    ;;
+	esac
+	fi
+
+	dynamic=$(cat /sys/devices/virtual/misc/second_core/hotplug_on)
+	dual=$(cat /sys/devices/virtual/misc/second_core/second_core_on)
+	if [ "$dynamic" == "on" ];then
+	echo 1
+	elif [ "$dynamic" == "off" ];then
+	if [ "$dual" == "off" ];then
+	echo 2
+	fi
+	if [ "$dual" == "on" ];then
+	echo 3
+	fi
+	fi
+	}
 
 case $1 in
 
@@ -299,6 +330,15 @@ if [[ ! -z $2 ]]; then
 		charger $1 $2
 	else
 		charger $1
+	fi
+	;;
+
+hotplug)
+
+if [[ ! -z $2 ]]; then
+		hotplug_control $1 $2
+	else
+		hotplug_control $1
 	fi
 	;;
 
