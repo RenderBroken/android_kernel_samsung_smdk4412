@@ -1,0 +1,25 @@
+#!/system/bin/sh
+
+if [ "a$2" != "a" ];then
+  hotplug=$2
+fi
+
+mount -o remount,rw /
+
+case "${hotplug}" in
+  1)
+    echo "on" > /sys/devices/virtual/misc/second_core/hotplug_on
+    ;;
+  2)
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "off" > /sys/devices/virtual/misc/second_core/second_core_on
+    ;;
+  3)
+    echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "on" > /sys/devices/virtual/misc/second_core/second_core_on
+    ;;
+esac;
+
+mount -o remount,ro /
+
+echo $hotplug

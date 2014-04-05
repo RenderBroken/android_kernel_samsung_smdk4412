@@ -62,9 +62,9 @@
  * DEFAULT_DISABLE_LOAD_THRESHOLD is the default load at which a CPU is disabled
  * These two are scaled based on num_online_cpus()
  */
-#define DEFAULT_ENABLE_ALL_LOAD_THRESHOLD	440
-#define DEFAULT_ENABLE_LOAD_THRESHOLD		440
-#define DEFAULT_DISABLE_LOAD_THRESHOLD		330
+#define DEFAULT_ENABLE_ALL_LOAD_THRESHOLD	600
+#define DEFAULT_ENABLE_LOAD_THRESHOLD		600
+#define DEFAULT_DISABLE_LOAD_THRESHOLD		400
 
 /* Control flags */
 unsigned char flags;
