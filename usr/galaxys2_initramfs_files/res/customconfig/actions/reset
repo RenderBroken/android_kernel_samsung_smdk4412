@@ -1,8 +1,9 @@
 #!/system/bin/sh
 
-rm /data/.siyah/.active.profile
-rm /data/.siyah/.ccxmlsum
-rm /data/.siyah/default.profile
-rm /data/.siyah/.profile
+mount -o remount,rw /
+
+rm -r /data/.siyah
+
+mount -o remount,ro /
 
 echo Restart your device!

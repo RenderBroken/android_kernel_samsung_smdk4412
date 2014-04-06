@@ -52,6 +52,7 @@ file /res/customconfig/actions/swap  /home/gustavo/kernel/usr/galaxys2_initramfs
 file /res/customconfig/actions/negative  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/negative 755 0 0
 file /res/customconfig/actions/hotplug  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/hotplug 755 0 0
 file /res/customconfig/actions/profile  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/profile 755 0 0
+file /res/customconfig/actions/reset  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/reset 755 0 0
 file /res/libsqlite.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/libsqlite.so 755 0 0
 file /res/sqlite3 /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/sqlite3 755 0 0
 dir /res/synapse 755 0 0

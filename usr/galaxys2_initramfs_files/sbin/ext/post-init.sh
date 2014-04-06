@@ -28,7 +28,8 @@ if [ -f /data/gps.conf ]
         chmod 0660 /system/etc/gps.conf
         mount -o remount,ro /system	    
 fi
-else
+# if synapse is not installed check if stweaks is
+elif [ -f "/data/app/com.gokhanmoral.stweaks.app-1.apk" ]; then
 # set up stweaks support
 mkdir /data/.siyah
 chmod 0777 /data/.siyah
@@ -68,11 +69,6 @@ fi
 
 #usb mode
 /res/customconfig/actions/usb-mode ${usb_mode}
-
-# check if vpll is enabled
-if [ "$vpll" == "on" ];then
-echo "1" > /sys/module/mali/parameters/mali_use_vpll
-fi
 
 fi
 
@@ -126,6 +122,3 @@ sysctl -w vm.dirty_ratio=10;
 # low swapiness to use swap only when the system 
 # is under extreme memory pressure
 sysctl -w vm.swappiness=25;
-
-##### init scripts #####
-/system/bin/sh sh /sbin/ext/run-init-scripts.sh
