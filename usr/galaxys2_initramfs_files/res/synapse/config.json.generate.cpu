@@ -58,7 +58,7 @@ cat << CTAG
 	}},
 	{ SOptionList:{
                 default:ondemand,
-                action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
+                action:"option governors",
                 values:{
 zzmoove:"zzmoove",
 NeoX:"NeoX",

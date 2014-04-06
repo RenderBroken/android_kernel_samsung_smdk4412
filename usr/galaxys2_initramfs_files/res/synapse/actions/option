@@ -285,6 +285,49 @@ hotplug_control() {
 	fi
 	fi
 	}
+	
+governor() {
+	if [[ ! -z $2 ]]; then
+  dynamic=$(cat /sys/devices/virtual/misc/second_core/hotplug_on)
+  dual=$(cat /sys/devices/virtual/misc/second_core/second_core_on)
+  echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
+  echo "on" > /sys/devices/virtual/misc/second_core/second_core_on
+		case $2 in
+  zzmoove)
+    echo "zzmoove" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  NeoX)
+    echo "neox" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  hyper)
+    echo "hyper" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  pegasusq)
+    echo "pegasusq" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  conservative)
+    echo "conservative" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  userspace)
+    echo "userspace" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  powersave)
+    echo "powersave" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  ondemand)
+    echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+  performance)
+    echo "performance" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
+	esac
+	fi
+
+	echo "$dynamic" > /sys/devices/virtual/misc/second_core/hotplug_on
+    echo "$dual" > /sys/devices/virtual/misc/second_core/second_core_on
+	governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+	echo $governor
+}
 
 case $1 in
 
@@ -339,6 +382,15 @@ if [[ ! -z $2 ]]; then
 		hotplug_control $1 $2
 	else
 		hotplug_control $1
+	fi
+	;;
+
+governors)
+
+if [[ ! -z $2 ]]; then
+		governor $1 $2
+	else
+		governor $1
 	fi
 	;;
 
