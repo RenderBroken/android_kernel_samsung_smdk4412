@@ -365,10 +365,8 @@ static int pm_hotplug_cpufreq_policy_notifier_call(struct notifier_block *this,
 	case CPUFREQ_ADJUST:
 		if (
 			(!strnicmp(policy->governor->name, "pegasusq", CPUFREQ_NAME_LEN)) ||
-			(!strnicmp(policy->governor->name, "lulzactiveq", CPUFREQ_NAME_LEN)) ||
-			(!strnicmp(policy->governor->name, "hotplug", CPUFREQ_NAME_LEN)) ||
-			(!strnicmp(policy->governor->name, "zzmoove", CPUFREQ_NAME_LEN)) ||
-			(!strnicmp(policy->governor->name, "assplug", CPUFREQ_NAME_LEN))
+			(!strnicmp(policy->governor->name, "NeoX", CPUFREQ_NAME_LEN)) ||
+			(!strnicmp(policy->governor->name, "zzmoove", CPUFREQ_NAME_LEN))
 			) 
 		{
 			if(pm_hotplug_enabled)

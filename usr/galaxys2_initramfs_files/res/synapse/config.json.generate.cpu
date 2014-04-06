@@ -40,19 +40,6 @@ cat << CTAG
 		}
 	}},
 	{ SPane:{
-		title:"CPU Hotplug Control",
-		description:"You can set the CPU hotplug as dynamic hotplug mode, single core mode or fully dual core mode."
-	}},
-	{ SOptionList:{
-                default:1,
-                action:"option hotplug",
-                values:{
-1:"Dynamic Hotplug",
-2:"Single Core Mode",
-3:"Dual Core Mode",
-                }
-        }},
-	{ SPane:{
 		title:"CPU Governor",
 		description:"The CPU governor determines how the CPU behaves in response to changes in workload. Changing the governor will impact how the CPU scales through the frequency steps available to you CPU."
 	}},
@@ -82,6 +69,19 @@ performance:"Performance",
 			Battery,
 			Performance,
                 ]
+        }},
+   { SPane:{
+		title:"CPU Hotplug Control",
+		description:"You can set the CPU hotplug as dynamic hotplug mode, single core mode or fully dual core mode."
+	}},
+	{ SOptionList:{
+                default:1,
+                action:"option hotplug",
+                values:{
+1:"Dynamic Hotplug",
+2:"Single Core Mode",
+3:"Dual Core Mode",
+                }
         }},
         { SPane:{
 		title:"CPU Voltage Control",

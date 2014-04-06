@@ -20,10 +20,10 @@ Performance)
     echo "25" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
   fi
   if [ "$GOVERNOR" == "NeoX" ];then
-    echo "60" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
-    echo "2" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
-    echo "15" > /sys/devices/system/cpu/cpufreq/neox/down_differential
-    echo "100" > /sys/devices/system/cpu/cpufreq/neox/freq_step
+    echo "60" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
+    echo "2" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
+    echo "15" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
+    echo "100" > /sys/devices/system/cpu/cpufreq/NeoX/freq_step
   fi
   if [ "$GOVERNOR" == "ondemand" ];then
     echo "60" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
@@ -60,10 +60,10 @@ Balanced)
     echo "20" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
   fi
   if [ "$GOVERNOR" == "NeoX" ];then
-    echo "90" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/neox/down_differential
-    echo "70" > /sys/devices/system/cpu/cpufreq/neox/freq_step
+    echo "90" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
+    echo "70" > /sys/devices/system/cpu/cpufreq/NeoX/freq_step
   fi
   if [ "$GOVERNOR" == "ondemand" ];then
     echo "90" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
@@ -100,9 +100,9 @@ Battery)
     echo "5" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
   fi
   if [ "$GOVERNOR" == "NeoX" ];then
-    echo "95" > /sys/devices/system/cpu/cpufreq/neox/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/neox/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/neox/down_differential
+    echo "95" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
+    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
+    echo "5" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
   fi
   if [ "$GOVERNOR" == "ondemand" ];then
     echo "95" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
@@ -125,10 +125,6 @@ Battery)
 		esac
 	fi
 
-
-	if [ "$GOVERNOR" == "NeoX" ];then
-	GOVERNOR=neox
-	fi
 	if [ "$GOVERNOR" == "zzmoove" ];then
 	if grep -q 60 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
 		echo Performance
@@ -257,17 +253,46 @@ charger() {
 	
 hotplug_control() {
 	if [[ ! -z $2 ]]; then
+    GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
 		case $2 in
   1)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
     echo "on" > /sys/devices/virtual/misc/second_core/hotplug_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "0" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
+    
     ;;
   2)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
     echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
     echo "off" > /sys/devices/virtual/misc/second_core/second_core_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
     ;;
   3)
+    if [ "$GOVERNOR" == "zzmoove" ];then
+    echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+    fi
     echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
     echo "on" > /sys/devices/virtual/misc/second_core/second_core_on
+    if [ "$GOVERNOR" == "pegasusq" ];then
+    echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+    fi
+    if [ "$GOVERNOR" == "NeoX" ];then
+    echo "2" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+    fi
     ;;
 	esac
 	fi
@@ -292,6 +317,16 @@ governor() {
   dual=$(cat /sys/devices/virtual/misc/second_core/second_core_on)
   echo "off" > /sys/devices/virtual/misc/second_core/hotplug_on
   echo "on" > /sys/devices/virtual/misc/second_core/second_core_on
+  GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
+  if [ "$GOVERNOR" == "zzmoove" ];then
+  echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/disable_hotplug
+  fi
+  if [ "$GOVERNOR" == "pegasusq" ];then
+  echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+  fi
+  if [ "$GOVERNOR" == "NeoX" ];then
+  echo "2" > /sys/devices/system/cpu/cpufreq/NeoX/max_cpu_lock
+  fi
 		case $2 in
   zzmoove)
     echo "zzmoove" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
@@ -320,9 +355,13 @@ governor() {
   performance)
     echo "performance" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
     ;;
+  intellidemand)
+    echo "intellidemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    ;;
 	esac
 	fi
 
+	GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
 	echo "$dynamic" > /sys/devices/virtual/misc/second_core/hotplug_on
     echo "$dual" > /sys/devices/virtual/misc/second_core/second_core_on
 	governor=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
