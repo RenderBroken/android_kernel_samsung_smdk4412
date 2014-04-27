@@ -1,7 +1,7 @@
 #!/bin/bash
 
-TOOLCHAIN="/home/gustavo/toolchain/bin/arm-cortex_a9-linux-gnueabihf-"
-STRIP="/home/gustavo/toolchain/bin/arm-gnueabi-strip"
+TOOLCHAIN="/home/gustavo/toolchain/bin/arm-linux-androideabi-"
+STRIP="/home/gustavo/toolchain/bin/arm-linux-androideabi-strip"
 OUTDIR="out"
 KK_CWM_INITRAMFS_SOURCE="/home/gustavo/kernel/usr/initramfs/cwm.list"
 KK_TWRP_INITRAMFS_SOURCE="/home/gustavo/kernel/usr/initramfs/twrp.list"
