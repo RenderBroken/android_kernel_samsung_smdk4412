@@ -8,7 +8,7 @@
 #!/sbin/busybox sh
 
 # check if synapse is installed
-if [ -f "/data/app/com.af.synapse-1.apk" ]; then
+if [ -f "/data/app/com.af.synapse-2.apk" ]; then
 # set up Synapse support
 /sbin/uci;
 
@@ -47,20 +47,6 @@ fi
 read_defaults
 read_config
 
-# disable debugging on some modules
-if [ "$logger" == "off" ];then
-  rm -rf /dev/log
-  echo 0 > /sys/module/ump/parameters/ump_debug_level
-  echo 0 > /sys/module/mali/parameters/mali_debug_level
-  echo 0 > /sys/module/kernel/parameters/initcall_debug
-  echo 0 > /sys//module/lowmemorykiller/parameters/debug_level
-  echo 0 > /sys/module/earlysuspend/parameters/debug_mask
-  echo 0 > /sys/module/alarm/parameters/debug_mask
-  echo 0 > /sys/module/alarm_dev/parameters/debug_mask
-  echo 0 > /sys/module/binder/parameters/debug_mask
-  echo 0 > /sys/module/xt_qtaguid/parameters/debug_mask
-fi
-
 #apply last soundgasm level on boot
 /res/uci.sh soundgasm_hp $soundgasm_hp
 
@@ -71,6 +57,11 @@ fi
 /res/customconfig/actions/usb-mode ${usb_mode}
 
 fi
+
+# disable debugging on some modules
+echo 0 > /sys/module/kernel/parameters/initcall_debug
+echo 0 > /sys/module/binder/parameters/debug_mask
+echo 0 > /sys/module/xt_qtaguid/parameters/debug_mask
 
 # install kernel modules
 mount -o remount,rw /system
@@ -86,7 +77,7 @@ cp /modules/sunrpc.ko /system/lib/modules/
 cp /modules/scsi_wait_scan.ko /system/lib/modules/
 chmod 0644 /system/lib/modules/*.ko
 
-# system status
+# system status script
 cp /res/systemstatus /system/bin/systemstatus
 chown root.system /system/bin/systemstatus
 chmod 0755 /system/bin/systemstatus
@@ -117,9 +108,21 @@ setprop net.dns2 8.8.4.4
 echo "100" > /sys/kernel/mm/ksm/pages_to_scan
 echo "500" > /sys/kernel/mm/ksm/sleep_millisecs
 
-for i in /sys/block/*/queue/add_random;do echo 0 > $i;done
+# block tweaks
+for i in /sys/block/*/queue ; do
+  echo 0 > $i/iostats
+  echo 0 > $i/rotational
+done
+for i in /sys/block/*/queue/add_random;do 
+echo 0 > $i;
+done
 
 echo "0" > /proc/sys/kernel/randomize_va_space
+
+cp /res/msaa /data/msaa
+
+# set cgroup_timer_slack for bg_non_interactive tasks
+echo "100000000" > /dev/cpuctl/apps/bg_non_interactive/timer_slack.min_slack_ns
 
 sysctl -w vm.dirty_background_ratio=5;
 sysctl -w vm.dirty_ratio=10;

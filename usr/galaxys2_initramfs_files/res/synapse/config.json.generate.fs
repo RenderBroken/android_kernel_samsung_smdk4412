@@ -6,7 +6,7 @@ cat << CTAG
 		title:"I/O Settings"
 	}},
 	{ SOptionList:{
-		title:"Internal storage scheduler",
+		title:"I/O Scheduler",
 		default:sio,
 		action:"bracket-option /sys/block/mmcblk0/queue/scheduler",
 		values:[
@@ -18,19 +18,11 @@ cat << CTAG
 		]
 	}},
 	{ SSeekBar:{
-		title:"Internal storage read-ahead buffer",
-		description:"The read-ahead value on the internal phone memory.",
+		title:"I/O read-ahead buffer",
 		max:4096, min:128, unit:" kB", step:128,
 		default:128,
                 action:"generic /sys/devices/virtual/bdi/179:0/read_ahead_kb",
 	}},
-
-
-
-
-
-
-
    ]
 }
 

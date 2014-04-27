@@ -3,7 +3,22 @@ cat << CTAG
     name:TWEAKS,
     elements:[
     { STitleBar:{
-		title:"Charge Control"
+		title:"CFS Tweaks"
+	}},
+	{ SCheckBox:{
+		description:"Disabling Gentle Fair Sleepers may improve UI responsiveness.",
+                label:"GENTLE_FAIR_SLEEPERS",
+                default:0,
+                action:"option GFS",
+        }},
+    { SCheckBox:{
+		description:"Using ARCH_POWER enables the use of arm topology power functions instead of generic ones.",
+                label:"ARCH_POWER",
+                default:1,
+                action:"option power",
+        }},
+	{ SPane:{
+		title:"Charge Control",
 	}},
 	{ SOptionList:{
 		title:"Charge Current Control",
@@ -33,7 +48,7 @@ cat << CTAG
 	}},
  { SGeneric:{
    title:"GPS Configuration",
-   description:"Here you can change your location to improve GPS. Info about location codes can be found <a href='http://www.pool.ntp.org/en/'>here</a>",
+   description:"Here you can change your location to improve GPS by typing your location in the text box below. Info about location prefix codes can be found <a href='http://www.pool.ntp.org/en/'>here</a>",
    default:north-america,
    action:"option gps",
 }},
@@ -41,6 +56,8 @@ cat << CTAG
 		refresh:1000,
 		action:"live gps"
 	}},
+	
+	
 	]
 }
 

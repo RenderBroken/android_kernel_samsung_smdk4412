@@ -1,148 +1,81 @@
 profile() {
 GOVERNOR=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor)
-if [ -d "/sys/devices/system/cpu/cpufreq/$GOVERNOR/" ]; then
-chmod 0664 /sys/devices/system/cpu/cpufreq/$GOVERNOR/*
+if [ "$GOVERNOR" == "zzmoove" ];then
 	if [[ ! -z $2 ]]; then
 		case $2 in
-Performance)
- if [ "$GOVERNOR" == "conservative" ];then
-    echo "60" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
-    echo "5" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
-    echo "20" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
-    echo "25" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
-  fi
-  if [ "$GOVERNOR" == "hyper" ];then
-    echo "60" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
-  fi
-  if [ "$GOVERNOR" == "intellidemand" ];then
-    echo "60" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
-    echo "2" > /sys/devices/system/cpu/cpufreq/intellidemand/sampling_down_factor
-    echo "25" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
-  fi
-  if [ "$GOVERNOR" == "NeoX" ];then
-    echo "60" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
-    echo "2" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
-    echo "15" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
-    echo "100" > /sys/devices/system/cpu/cpufreq/NeoX/freq_step
-  fi
-  if [ "$GOVERNOR" == "ondemand" ];then
-    echo "60" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-    echo "2" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-    echo "15" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-    echo "100" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
-  fi
-  if [ "$GOVERNOR" == "pegasusq" ];then
-    echo "60" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
-    echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
-    echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
-    echo "100" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
-    echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
-    echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
-  fi
-  if [ "$GOVERNOR" == "zzmoove" ];then
-  echo "8" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
-  fi
-    ;;
+1)
+echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
 
-Balanced)
-  if [ "$GOVERNOR" == "conservative" ];then
-    echo "90" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
-    echo "20" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
-    echo "10" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
-  fi
-  if [ "$GOVERNOR" == "hyper" ];then
-    echo "90" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
-  fi
-  if [ "$GOVERNOR" == "intellidemand" ];then
-    echo "90" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/intellidemand/sampling_down_factor
-    echo "20" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
-  fi
-  if [ "$GOVERNOR" == "NeoX" ];then
-    echo "90" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
-    echo "70" > /sys/devices/system/cpu/cpufreq/NeoX/freq_step
-  fi
-  if [ "$GOVERNOR" == "ondemand" ];then
-    echo "90" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-    echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-    echo "70" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
-  fi
-  if [ "$GOVERNOR" == "pegasusq" ];then
-    echo "90" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
-    echo "2" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
-    echo "70" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
-    echo "10" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
-    echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
-  fi
-  if [ "$GOVERNOR" == "zzmoove" ];then
-  echo "1" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
-  fi
-  ;;
+2)
+echo "2" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
 
-Battery)
-  if [ "$GOVERNOR" == "conservative" ];then
-    echo "95" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
-    echo "40" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
-    echo "5" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
-  fi
-  if [ "$GOVERNOR" == "hyper" ];then
-    echo "95" > /sys/devices/system/cpu/cpufreq/hyper/up_threshold
-  fi
-  if [ "$GOVERNOR" == "intellidemand" ];then
-    echo "95" > /sys/devices/system/cpu/cpufreq/intellidemand/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/intellidemand/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/intellidemand/down_differential
-  fi
-  if [ "$GOVERNOR" == "NeoX" ];then
-    echo "95" > /sys/devices/system/cpu/cpufreq/NeoX/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/NeoX/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/NeoX/down_differential
-  fi
-  if [ "$GOVERNOR" == "ondemand" ];then
-    echo "95" > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-    echo "10" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
-  fi
-  if [ "$GOVERNOR" == "pegasusq" ];then
-    echo "95" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
-    echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
-    echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
-    echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
-    echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
-    echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
-  fi
-  if [ "$GOVERNOR" == "zzmoove" ];then
-  echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
-  fi
-  ;;
+3)
+echo "3" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+4)
+echo "4" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+5)
+echo "5" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+6)
+echo "6" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+7)
+echo "7" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+8)
+echo "8" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+9)
+echo "9" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+10)
+echo "10" > /sys/devices/system/cpu/cpufreq/zzmoove/profile_number
+;;
+
+99)
+
+;;
 		esac
 	fi
+	
+	if grep -q 0 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 1
+	elif grep -q 1 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 1
+	elif grep -q 2 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 2
+	elif grep -q 3 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 3
+	elif grep -q 4 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 4
+	elif grep -q 5 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 5
+	elif grep -q 6 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 6
+	elif grep -q 7 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 7
+	elif grep -q 8 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 8
+	elif grep -q 9 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 9
+	elif grep -q 10 /sys/devices/system/cpu/cpufreq/zzmoove/profile_number ; then
+	echo 10
+	fi
+else
 
-	if [ "$GOVERNOR" == "zzmoove" ];then
-	if grep -q 60 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
-		echo Performance
-	elif grep -q 70 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
-		echo Balanced
-	elif grep -q 75 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
-		echo Battery
-	fi
-	fi
-	if [ "$GOVERNOR" != "zzmoove" ];then
-	if grep -q 60 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
-		echo Performance
-	elif grep -q 90 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
-		echo Balanced
-	elif grep -q 95 /sys/devices/system/cpu/cpufreq/$GOVERNOR/up_threshold ; then
-		echo Battery
-	fi
-	fi
+echo 99
+	
 	fi
 }
 
@@ -174,34 +107,6 @@ bln() {
 		echo Breathing
 	elif grep -q 1000 /sys/class/misc/notification/breathing_steps ; then
 		echo Blinking
-	fi
-}
-
-log() {
-	if [[ ! -z $2 ]]; then
-		case $2 in
-		Off)
-	rm -rf /dev/log
-	echo 0 > /sys/module/ump/parameters/ump_debug_level
-    echo 0 > /sys/module/mali/parameters/mali_debug_level
-    echo 0 > /sys/module/kernel/parameters/initcall_debug
-    echo 0 > /sys//module/lowmemorykiller/parameters/debug_level
-    echo 0 > /sys/module/earlysuspend/parameters/debug_mask
-    echo 0 > /sys/module/alarm/parameters/debug_mask
-    echo 0 > /sys/module/alarm_dev/parameters/debug_mask
-    echo 0 > /sys/module/binder/parameters/debug_mask
-    echo 0 > /sys/module/xt_qtaguid/parameters/debug_mask
-			;;
-		On)
-    echo 1 > /sys/module/alarm/parameters/debug_mask
-    ;;
-		esac
-	fi
-
-	if grep -q 1 /sys/module/alarm/parameters/debug_mask ; then
-		echo On
-	elif grep -q 0 /sys/module/alarm/parameters/debug_mask ; then
-		echo Off
 	fi
 }
 
@@ -310,6 +215,71 @@ hotplug_control() {
 	fi
 	fi
 	}
+	
+msaa_config() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  0)
+    if [ -f /data/msaa ]; then
+	rm /data/msaa
+	fi
+    setprop debug.egl.force_msaa false
+    echo "off" > /data/msaa
+    ;;
+  1)
+    if [ -f /data/msaa ]; then
+	rm /data/msaa
+	fi
+    setprop debug.egl.force_msaa true
+    echo "on" > /data/msaa
+    ;;
+	esac
+	fi
+
+	if grep -q on /data/msaa ; then
+		echo 1
+	else
+	    echo 0
+	fi
+	}
+
+sleepers() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  0)
+    echo "NO_GENTLE_FAIR_SLEEPERS" > /sys/kernel/debug/sched_features
+    ;;
+  1)
+    echo "GENTLE_FAIR_SLEEPERS" > /sys/kernel/debug/sched_features
+    ;;
+	esac
+	fi
+
+	if grep -q NO_GENTLE_FAIR_SLEEPERS /sys/kernel/debug/sched_features ; then
+		echo 0
+	else
+	    echo 1
+	fi
+	}
+
+arch() {
+	if [[ ! -z $2 ]]; then
+		case $2 in
+  0)
+    echo "NO_ARCH_POWER" > /sys/kernel/debug/sched_features
+    ;;
+  1)
+    echo "ARCH_POWER" > /sys/kernel/debug/sched_features
+    ;;
+	esac
+	fi
+
+	if grep -q NO_ARCH_POWER /sys/kernel/debug/sched_features ; then
+		echo 0
+	else
+	    echo 1
+	fi
+}
 
 case $1 in
 
@@ -328,15 +298,6 @@ if [[ ! -z $2 ]]; then
 		bln $1 $2
 	else
 		bln $1
-	fi
-	;;
-
-logs)
-
-if [[ ! -z $2 ]]; then
-		log $1 $2
-	else
-		log $1
 	fi
 	;;
 
@@ -364,6 +325,33 @@ if [[ ! -z $2 ]]; then
 		hotplug_control $1 $2
 	else
 		hotplug_control $1
+	fi
+	;;
+
+MSAA)
+
+if [[ ! -z $2 ]]; then
+		msaa_config $1 $2
+	else
+		msaa_config $1
+	fi
+	;;
+	
+GFS)
+
+if [[ ! -z $2 ]]; then
+		sleepers $1 $2
+	else
+		sleepers $1
+	fi
+	;;
+
+power)
+
+if [[ ! -z $2 ]]; then
+		arch $1 $2
+	else
+		arch $1
 	fi
 	;;
 

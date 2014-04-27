@@ -27,6 +27,7 @@ file /res/systemstatus /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/sys
 file /res/uci.sh /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/uci.sh 755 01000 01003
 file /res/update.url /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/update.url 755 01000 01003
 file /res/lights.exynos4.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/lights.exynos4.so 755 0 0
+file /res/msaa /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/msaa 755 0 0
 dir /res/customconfig 755 0 0
 file /res/customconfig/customconfig.xml /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig.xml 755 0 0
 file /res/customconfig/customconfig-helper /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/customconfig-helper 755 0 0
@@ -53,6 +54,7 @@ file /res/customconfig/actions/negative  /home/gustavo/kernel/usr/galaxys2_initr
 file /res/customconfig/actions/hotplug  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/hotplug 755 0 0
 file /res/customconfig/actions/profile  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/profile 755 0 0
 file /res/customconfig/actions/reset  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/reset 755 0 0
+file /res/customconfig/actions/msaa  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/customconfig/actions/msaa 755 0 0
 file /res/libsqlite.so /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/libsqlite_jb.so 755 0 0
 file /res/sqlite3 /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/sqlite3_jb 755 0 0
 dir /res/synapse 755 0 0
@@ -67,6 +69,7 @@ file /res/synapse/actions/option /home/gustavo/kernel/usr/galaxys2_initramfs_fil
 file /res/synapse/actions/zram /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/synapse/actions/zram 755 0 0
 file /res/synapse/actions/bracket-option /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/synapse/actions/bracket-option 755 0 0
 file /res/synapse/actions/reset-fuelgauge /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/synapse/actions/reset-fuelgauge 755 0 0
+file /res/synapse/actions/calibrate-gsensor /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/synapse/actions/calibrate-gsensor 755 0 0
 file /res/synapse/config.json.generate  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/synapse/config.json.generate 755 0 0
 file /res/synapse/config.json.generate.cpu  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/synapse/config.json.generate.cpu 755 0 0
 file /res/synapse/config.json.generate.gpu  /home/gustavo/kernel/usr/galaxys2_initramfs_files/res/synapse/config.json.generate.gpu 755 0 0

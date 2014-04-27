@@ -3,16 +3,13 @@ cat << CTAG
     name:MISC,
     elements:[
 	{ STitleBar:{
-		title:"MISC Settings"
+		title:"Android logcat"
 	}},
-	{ SOptionList:{
-		title:"Logs",
-		default:On,
-                action:"option logs",
-                values:[
-			Off,
-			On,
-                ]
+	{ SCheckBox:{
+		description:"When disabled this will stop logcat creation; crash reports will be useless, but there is a minor possible gain to battery life.",
+                label:"System Logging",
+                default:`cat /sys/kernel/logger_mode/logger_mode | tr -cd [0-9]`,
+                action:"generic /sys/kernel/logger_mode/logger_mode"
         }},
        { SPane:{
 		title:"Fuel-Gauge",
@@ -21,6 +18,14 @@ cat << CTAG
         { SButton:{
    label:"Reset Fuel-Gauge Chip",
    action:"reset-fuelgauge"
+}},
+{ SPane:{
+		title:"Sensors",
+		description:"If you think that the g-sensor is behaving weird use this button to calibrate it. Place your device in a flat surface to get accurate calibrations. To calibrate the magnetic sensor, just turn your device around itself in x, y & z axis a couple of times."
+	}},
+{ SButton:{
+   label:"Calibrate G-Sensor",
+   action:"calibrate-gsensor"
 }},
 
  ]

@@ -6,7 +6,7 @@ cat << CTAG
 		title:"Backlight Notification Settings"
 	}},
 	{ SCheckBox:{
-		description:"Enabling BLN will make your touchkey LEDs behave as a notification LED.",
+		description:"BLN will get the ‘menu’ and ‘back’ buttons to light up when you receive a new text, email, or missed call, which means you won’t need to unlock the screen to discover a notification.",
                 label:"BLN",
                 default:0,
                 action:"generic /sys/class/misc/notification/notification_enabled",
@@ -22,7 +22,7 @@ cat << CTAG
 		default:0,
 		action:"generic /sys/class/misc/notification/notification_timeout",
 		values:{
-0:"Never",
+0:"∞",
 60000:"1 minute",
 180000:"3 minutes",
 300000:"5 minutes",
@@ -45,10 +45,9 @@ cat << CTAG
         }},
     { SPane:{
 		title:"Touchkey LEDs Settings",
-		description:"You should disable any touchkey settings your rom has to use synapse settings."
 	}},
 	{ SCheckBox:{
-		description:"Force disable will keep touchkeys off no matter what settings are set below.",
+		description:"Force disable will keep touchkeys always off.",
                 label:"Force Disable",
                 default:1,
                 action:"generic /sys/devices/virtual/sec/sec_touchkey/force_disable",
@@ -70,7 +69,7 @@ cat << CTAG
 		default:0,
 		action:"generic /sys/devices/virtual/sec/sec_touchkey/led_timeout",
 		values:{
-0:"Never timeout",
+0:"∞",
 1:"1 second",
 3:"3 seconds",
 6:"6 seconds",
@@ -87,11 +86,11 @@ cat << CTAG
                   max:3300,
                   default:3000,
                   unit:"mV",
-                  action:"mic /sys/devices/virtual/sec/sec_touchkey/touchkey_brightness",
+                  action:"generic /sys/devices/virtual/sec/sec_touchkey/touchkey_brightness",
                }
             },
      { SCheckBox:{
-		description:"If enabled will set a LED voltage based on light sensor value. Voltage values set above will be ignored.",
+		description:"If enabled will set a LED voltage based on light sensor value.",
                 label:"Touchkey LEDs Auto Brightness",
                 default:0,
                 action:"generic /sys/class/misc/notification/dyn_brightness",

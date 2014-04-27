@@ -21,11 +21,6 @@ name="CPU Governor Settings">
 <spinnerItem name="Userspace" value="userspace"/>
 <spinnerItem name="zzmoove" value="zzmoove"/>
 </spinner>
-<spinner description="This will detect the current CPU governor and apply a profile for it. Works for all governors except zzmoove (settings below), performance, powersave and userspace governors." name="Governor Profiles" action="profile">
-<spinnerItem name="Performance" value="performance"/>
-<spinnerItem name="Balanced" value="balanced"/>
-<spinnerItem name="Power Saving" value="battery"/>
-</spinner>
 <spinner description="This will apply a profile for zzmoove governor if it is active. Check kernel thread for more info on profiles." name="zzmoove Profiles" action="generic /sys/devices/system/cpu/cpufreq/zzmoove/profile_number">
 <spinnerItem name="Default" value="1"/>
 <spinnerItem name="Yank Battery" value="2"/>
@@ -63,6 +58,7 @@ name="CPU Voltage 200 MHz" action="cpu-voltage 6" unit="mV" min="850" reversed="
 </settingsTab>
 <settingsTab name="GPU">
 <settingsPane description="GPU Frequency Settings. Default frequencies are 108, 160, 200 and 267. Voltage defaults are 900mV, 900mV, 950mV and 1000mV." name="GPU FREQUENCY">
+<checkbox description="Multisample anti-aliasing can improve image quality of some 3D games." name="Multisample anti-aliasing" action="msaa" label="4x MSAA"/>
 <checkbox description="Enabling VPLL mode may be unstable on some devices. If you do not use VPLL Mode some frequency steps will be unavailable. Be CAREFUL with voltages." name="VPLL Mode" action="generic01 /sys/module/mali/parameters/mali_use_vpll" label="VPLL Mode"/>
 <spinner description="" name="GPU 1st Step Frequency" action="gpu-freq 1">
 <spinnerItem name="440MHz (vpll)" value="440"/>
@@ -244,7 +240,7 @@ name="ZRAM Size" action="zram_size" unit="MB" min="0" reversed="false" step="32"
 </settingsTab>
 <settingsTab name="Misc">
 <settingsPane description="Misc Settings" name="Misc Settings">
-<checkbox description="Enable or Disable Android Logger (needs reboot)" name="Android Logger" action="generic /tmp/logger" label="Android Logger"/>
+<checkbox description="When disabled this will stop logcat creation; crash reports will be useless, but there is a minor possible gain to battery life." name="Android Logger" action="generic01 /sys/kernel/logger_mode/logger_mode" label="Android Logger"/>
 <spinner description="Charge current setting" name="Charge Current" action="chargecurrent">
 <spinnerItem name="AC:650mA, Misc,USB:450mA (Stock)" value="1"/>
 <spinnerItem name="AC,Misc:650mA, USB:450mA" value="2"/>

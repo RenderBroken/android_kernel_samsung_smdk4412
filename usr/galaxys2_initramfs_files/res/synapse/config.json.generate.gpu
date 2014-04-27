@@ -11,6 +11,12 @@ cat << CTAG
 		action:"live gpu"
 	}},
 	{ SCheckBox:{
+		description:"Multisample anti-aliasing can improve image quality of some 3D games.",
+                label:"4x MSAA",
+                default:0,
+                action:"option MSAA",
+        }},
+	{ SCheckBox:{
 		description:"Enabling VPLL mode may be unstable on some devices. If you do not use VPLL Mode some frequency steps will be unavailable. Be CAREFUL with voltages.",
                 label:"VPLL Mode",
                 default:0,
