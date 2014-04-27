@@ -39,45 +39,6 @@ cat << CTAG
 200000:"200 MHz",
 		}
 	}},
-	{ SPane:{
-		title:"CPU Governor",
-		description:"The CPU governor determines how the CPU behaves in response to changes in workload. Changing the governor will impact how the CPU scales through the frequency steps available to you CPU."
-	}},
-	{ SOptionList:{
-                default:ondemand,
-                action:"generic /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor",
-                values:{
-conservative:"Conservative",
-hyper:"HYPER",
-intellidemand:"Intellidemand",
-NeoX:"NeoX",
-ondemand:"Ondemand",
-pegasusq:"PegasusQ",
-performance:"Performance",
-powersave:"Powersave",
-userspace:"Userspace",
-zzmoove:"zzmoove",
-                }
-        }},
-     { SOptionList:{
-		title:"ZZMOOVE Profiles",
-		description:"This will set a profile for zzmoove governor if it is active.",
-		default:99,
-                action:"option profiles",
-                values:{
-99:"Disabled",
-1:"Default",
-2:"Yank Battery",
-3:"Yank Battery Extreme",
-4:"ZaneZam Battery",
-5:"ZaneZam Battery Plus",
-6:"ZaneZam Optimized",
-7:"ZaneZam Moderate",
-8:"ZaneZam Performance",
-9:"ZaneZam InZane",
-10:"ZaneZam Gaming",
-                }
-        }},
    { SPane:{
 		title:"CPU Hotplug Control",
 		description:"You can set the CPU hotplug as dynamic hotplug mode, single core mode or fully dual core mode. You should refresh this setting after changing governors."
