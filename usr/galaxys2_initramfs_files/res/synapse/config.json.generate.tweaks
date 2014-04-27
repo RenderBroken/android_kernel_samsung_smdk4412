@@ -41,23 +41,7 @@ cat << CTAG
    unit:"%",
    default:50,
    action:"generic /sys/class/timed_output/vibrator/pwm_value"
-}},
-
- { SPane:{
-		title:"GPS",
-	}},
- { SGeneric:{
-   title:"GPS Configuration",
-   description:"Here you can change your location to improve GPS by typing your location in the text box below. Info about location prefix codes can be found <a href='http://www.pool.ntp.org/en/'>here</a>",
-   default:north-america,
-   action:"option gps",
-}},
-{ SLiveLabel:{
-		refresh:1000,
-		action:"live gps"
-	}},
-	
-	
+}},	
 	]
 }
 
