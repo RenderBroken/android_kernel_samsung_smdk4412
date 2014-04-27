@@ -68,7 +68,9 @@ values:{
                     directory:{ },
                     element:{ SGeneric:{ title:"@NAME" }}
                 },
-                exclude:[ "boostpulse" ]
+                exclude:[ "boostpulse",
+                          "sampling_rate_current",
+                          "profile" ]
             }}
         },
         exclude:[ "kset" ]
